@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">an-todolist</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="listtasks">
+        <item>All</item>
+        <item>Today</item>
+    </string-array>
+    <string name="title_activity_add_task">AddTaskActivity</string>
+</resources>
