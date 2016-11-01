@@ -9,9 +9,10 @@ public class TaskToDo {
     private String description;  // описание задачи
     private String linkToPhoto;  // ссылка на фото для задачи
     private String location;   // местоположение для задачи
-    private Date dateToDo;  // дата/время задачи
+    private Date dateToDoCreate;  // дата/время создания задачи
     private Date dateToDoAlert;  // дата/время  задачи для напоминания
     private Long priority;  // приоритет задачи
+    private boolean check;  // true - задача выполнена, иначе не выполнена
 
 
 }

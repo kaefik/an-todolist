@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_task"
     android:layout_width="match_parent"
@@ -9,5 +10,85 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ru.isaifutdinov.kaefik.an_todolist.AddTaskActivity">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="14dp"
+        android:id="@+id/TitleTaskEditText"
+        android:hint="TitleTask" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/TimeAlertEditText"
+        android:hint="TimeAlert"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/DateAlertEditText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_marginTop="18dp"
+        android:id="@+id/DescriptionTaskEditText"
+        android:hint="DescriptionTask"
+        android:layout_below="@+id/TitleTaskEditText"
+        android:layout_alignStart="@+id/TitleTaskEditText" />
+
+    <TextView
+        android:text="New Task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_an_todo"
+        android:layout_below="@+id/TimeAlertEditText"
+        android:layout_alignStart="@+id/TimeAlertEditText"
+        android:layout_marginTop="28dp"
+        android:id="@+id/PhotoImageView" />
+
+    <Button
+        android:text="Create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/TimeAlertEditText"
+        android:layout_marginBottom="41dp"
+        android:id="@+id/CreateTaskButton" />
+
+    <CheckBox
+        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneTaskCheckBox"
+        android:layout_alignBottom="@+id/TitleTaskEditText"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/DateAlertEditText"
+        android:hint="DateAlert"
+        android:layout_above="@+id/TimeAlertEditText"
+        android:layout_alignStart="@+id/DescriptionTaskEditText"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
