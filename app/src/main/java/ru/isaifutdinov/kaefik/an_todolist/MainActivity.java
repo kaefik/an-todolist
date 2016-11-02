@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -13,7 +15,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.isaifutdinov.kaefik.an_todolist.Adapter.TaskRecyclerAdapter;
+import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+
+    RecyclerView mTasksRecyclerView;
+    Spinner listTaskSpinner;
+
+    List<TaskToDo> mTaskList; // спсиок дел - пока один -> TODO: заменить на массив списка дел
+
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,55 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Применяем адаптер к элементу spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        //вывод заданий согласно текущему списку
+        listTaskSpinner = (Spinner) findViewById(R.id.listTaskSpinner);
+        mTasksRecyclerView = (RecyclerView) findViewById(R.id.tasksRecyclerView);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mTasksRecyclerView.setHasFixedSize(false);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mTasksRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        //TODO: сделать выбор списка и фильтрация данных
+        //заполнения тестовыми задачами
+        mTaskList = new ArrayList<TaskToDo>();
+        mTaskList.add(new TaskToDo("Milk",false));
+        mTaskList.add(new TaskToDo("Хлеб"));
+        mTaskList.add(new TaskToDo("купить незамерзайку Love Milk How match?",true));
+        mTaskList.add(new TaskToDo("позввонить любимой"));
+
+
+
+        mAdapter = new TaskRecyclerAdapter(mTaskList,null);
+        //TODO: сделать обработку нажатий на элемент списка
+//                , new TaskRecyclerAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(final String item) {
+//                Toast.makeText(this,"нажали на элемент списка").show();
+//                Log.i(ConfigActivity.TAG_SERVICE, " выбран элемент  -> " + item);
+
+
+//                AlertDialog.Builder builder = new AlertDialog.Builder(AddNewCityActivity.this);
+//                builder.setTitle("Сделали правильный выбор?");
+//                builder.setMessage(item);
+//                builder.setCancelable(true);
+//                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() { // Кнопка ОК
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+
+//            }
+//        });
+        mTasksRecyclerView.setAdapter(mAdapter);
 
     }
 

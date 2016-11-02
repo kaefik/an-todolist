@@ -4,6 +4,7 @@
     <string-array name="listtasks">
         <item>All</item>
         <item>Today</item>
+        <item>Shopping</item>
     </string-array>
     <string name="title_activity_add_task">AddTaskActivity</string>
 </resources>

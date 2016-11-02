@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
 
     public interface OnItemClickListener {
-        void onItemClick(String item);
+        void onItemClick(TaskToDo item);
     }
 
 
@@ -30,13 +31,17 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         protected TextView mTitleTaskTextView; // заголовок задачи
+        protected CheckBox mCheckTaskCheckBox; // признак выполнения задачи
+//        protected TextView mDataCreateTaskTextView; // дата создания задачи
 
         public ViewHolder(View view) {
             super(view);
             mTitleTaskTextView = (TextView) view.findViewById(R.id.TitleTaskTextView);
+            mCheckTaskCheckBox = (CheckBox) view.findViewById(R.id.CheckTaskCheckBox);
+//            mDataCreateTaskTextView = (TextView) view.findViewById(R.id.DataCreateTaskTextView);
         }
 
-        public void bind(final String item, final OnItemClickListener listener) {
+        public void bind(final TaskToDo item, final OnItemClickListener listener) {
 
             mTitleTaskTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,15 +74,18 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        // - get element from your dataset at this position
-//        // - replace the contents of the view with that element
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
 //        Log.i(AddNewCityActivity.TAG_SERVICE, " onBindViewHolder mDataSet -> " + mDataSet.toString());
-//        String dataProvider = mDataSet.get(position);
+        TaskToDo dataProvider = mDataSet.get(position);
 //        Log.i(AddNewCityActivity.TAG_SERVICE, " onBindViewHolder -> " + dataProvider);
-//
+
 //        holder.mNameCityTextView.setText(dataProvider);
-//
-//        holder.bind(dataProvider, listener);
+        holder.mTitleTaskTextView.setText(dataProvider.getTitle());
+        holder.mCheckTaskCheckBox.setChecked(dataProvider.isCheck());
+//        holder.mDataCreateTaskTextView.setText(dataProvider.getDateToDoCreate().toString());
+
+        holder.bind(dataProvider, listener);
 
     }
 

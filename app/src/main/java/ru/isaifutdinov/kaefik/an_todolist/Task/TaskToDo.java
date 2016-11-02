@@ -32,6 +32,13 @@ public class TaskToDo {
         id = 0l;
     }
 
+    public TaskToDo(String title, boolean check) {
+        this.title = title;
+        this.check = check;
+        this.setDateToDoCreate();
+        id = 0l;
+    }
+
     public Long getId() {
         return id;
     }
