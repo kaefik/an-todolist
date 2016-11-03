@@ -3,6 +3,7 @@ package ru.isaifutdinov.kaefik.an_todolist;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ru.isaifutdinov.kaefik.an_todolist.Adapter.TaskRecyclerAdapter;
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
@@ -25,7 +27,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     RecyclerView mTasksRecyclerView;
-    Spinner listTaskSpinner;
+    Spinner mlistTaskSpinner;
+
+    Map<String, List<TaskToDo>> mTaskListMap; // хранилище списков дел с задачами
+    String tekNameList;
 
     List<TaskToDo> mTaskList; // спсиок дел - пока один -> TODO: заменить на массив списка дел
 
@@ -48,11 +53,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-    // заполняем выпадающий список значениями по умолчанию
+
+        // заполняем выпадающий список значениями по умолчанию
         Spinner spinner = (Spinner) findViewById(R.id.listTaskSpinner);
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.listtasks, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, this.getListNames());
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.listtasks, android.R.layout.simple_spinner_item);
         // Определяем разметку для использования при выборе элемента
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Применяем адаптер к элементу spinner
@@ -60,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setOnItemSelectedListener(this);
 
         //вывод заданий согласно текущему списку
-        listTaskSpinner = (Spinner) findViewById(R.id.listTaskSpinner);
+        mlistTaskSpinner = (Spinner) findViewById(R.id.listTaskSpinner);
         mTasksRecyclerView = (RecyclerView) findViewById(R.id.tasksRecyclerView);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -73,51 +81,77 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //TODO: сделать выбор списка и фильтрация данных
         //заполнения тестовыми задачами
-        mTaskList = new ArrayList<TaskToDo>();
-        mTaskList.add(new TaskToDo("Milk",false));
-        mTaskList.add(new TaskToDo("Хлеб"));
-        mTaskList.add(new TaskToDo("купить незамерзайку Love Milk How match?",true));
-        mTaskList.add(new TaskToDo("позввонить любимой"));
+        mTaskListMap = new ArrayMap<String, List<TaskToDo>>();
+
+        List<TaskToDo> tempTask = new ArrayList<TaskToDo>();
+        tempTask.add(new TaskToDo("Milk", false));
+        tempTask.add(new TaskToDo("Хлеб"));
+        tempTask.add(new TaskToDo("купить незамерзайку Love Milk How match?", true));
+        tempTask.add(new TaskToDo("позввонить любимой"));
+        mTaskListMap.put(this.getListNames().get(0), tempTask);
+
+        tempTask = new ArrayList<TaskToDo>();
+        tempTask.add(new TaskToDo("сходить в магазин", false));
+        tempTask.add(new TaskToDo("начать учить анг яз"));
+        mTaskListMap.put(this.getListNames().get(1), tempTask);
+
+        tempTask = new ArrayList<TaskToDo>();
+        mTaskListMap.put(this.getListNames().get(2), tempTask);
+        //END - заполнения тестовыми задачами
 
 
+//        mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(getListNames().get(0)), null);
+        refreshListRecyclerView(getListNames().get(0));
 
-        mAdapter = new TaskRecyclerAdapter(mTaskList,null);
-        //TODO: сделать обработку нажатий на элемент списка
-//                , new TaskRecyclerAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(final String item) {
-//                Toast.makeText(this,"нажали на элемент списка").show();
-//                Log.i(ConfigActivity.TAG_SERVICE, " выбран элемент  -> " + item);
-
-
-//                AlertDialog.Builder builder = new AlertDialog.Builder(AddNewCityActivity.this);
-//                builder.setTitle("Сделали правильный выбор?");
-//                builder.setMessage(item);
-//                builder.setCancelable(true);
-//                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() { // Кнопка ОК
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//
-//                    }
-//                });
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-
-//            }
-//        });
-        mTasksRecyclerView.setAdapter(mAdapter);
 
     }
 
+    //возращает имена списков дел (задач) - TODO: сделать чтобы восстановление имеющихся списков дел было из файла настроек или из базы данных
+    public List<String> getListNames() {
+        List<String> namesList = new ArrayList<String>();
+        namesList.add("All");
+        namesList.add("Today");
+        namesList.add("Shopping");
+        return namesList;
+    }
 
+    //возвращает текущий список задач
+
+    public String getTekNameList() {
+        return tekNameList;
+    }
+
+
+    public void setTekNameList(String tekNameList) {
+        this.tekNameList = tekNameList;
+    }
+
+    // обработчик выбранного элемента элемента mlistTaskSpinner
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // Получаем выбранный объект
         Object item = parent.getItemAtPosition(pos);
-        Toast.makeText(this,item.toString(),Toast.LENGTH_SHORT).show();
+        this.setTekNameList(item.toString());
+        Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
+
+        refreshListRecyclerView(this.getTekNameList());
 
     }
+
+    public void refreshListRecyclerView(String nameList) {
+        if (mTaskListMap.get(nameList) != null) {
+            mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(nameList), new TaskRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(final TaskToDo item) {
+                    Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            mTasksRecyclerView.setAdapter(mAdapter);
+        } else {
+            Toast.makeText(getApplicationContext(), " Что-то пошло не так. Свяжитесь с разработчиком.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Обработка события
