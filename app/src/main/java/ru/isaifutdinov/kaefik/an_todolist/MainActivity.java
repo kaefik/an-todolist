@@ -26,6 +26,11 @@ import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String TASK_TITLE = "titleTask";
+    public static final String TASK_ID = "idTask";
+    public static final String TASK_CHECK = "checkTask";
+    public static final String TASK_DATECREATE = "dateCreateTask";
+
 
     RecyclerView mTasksRecyclerView;
     Spinner mlistTaskSpinner;
@@ -145,9 +150,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 @Override
                 public void onItemClick(final TaskToDo item) {
 //                    startActivityForResult(tmpCityModel.putExtraIntent(getApplicationContext(),  AddTaskActivity.class), RequestCode.REQUEST_CODE_CITY_WEATHER);
+
+                    //передача параметров в активити AddTaskActivity.class
                     Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
-                    intent.putExtra("titleTask",item.getTitle());
+                    intent.putExtra(TASK_TITLE,item.getTitle());
+                    intent.putExtra(TASK_ID,item.getId());
+                    intent.putExtra(TASK_DATECREATE,item.getDateToDoCreate().toString());
+                    intent.putExtra(TASK_CHECK,item.isCheck());
                      startActivity(intent);
+
                     Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });

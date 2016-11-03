@@ -13,7 +13,7 @@
     tools:context="ru.isaifutdinov.kaefik.an_todolist.AddTaskActivity">
 
     <TextView
-        android:text="New Task"
+        android:text="Action to Task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -27,25 +27,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/doneTaskCheckBox"
-        android:layout_alignBottom="@+id/TitleTaskEditText"
+        android:layout_alignBottom="@+id/titleTaskEditText"
         android:layout_alignEnd="@+id/textView2" />
 
     <Button
-        android:text="Create"
+        android:text="Apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="58dp"
-        android:id="@+id/CreateTaskButton"
+        android:id="@+id/createTaskButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/TitleTaskEditText" />
+        android:layout_alignEnd="@+id/titleTaskEditText"
+        android:onClick="onApplyButton (AddTaskActivity)" />
 
     <TextView
         android:text="DataCreateTaskTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/DataCreateTaskTextView"
+        android:id="@+id/dataCreateTaskTextView"
         android:textSize="24sp"
-        android:layout_above="@+id/CreateTaskButton"
+        android:layout_above="@+id/createTaskButton"
         android:layout_alignStart="@+id/textView2"
         android:layout_marginBottom="72dp" />
 
@@ -54,10 +55,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/TitleTaskEditText"
+        android:id="@+id/titleTaskEditText"
         android:hint="TitleTask"
         android:layout_marginEnd="17dp"
-        android:layout_above="@+id/DataCreateTaskTextView"
+        android:layout_above="@+id/dataCreateTaskTextView"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="77dp" />
 
