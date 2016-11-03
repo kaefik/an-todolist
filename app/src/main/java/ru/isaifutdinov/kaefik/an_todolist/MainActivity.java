@@ -1,5 +1,6 @@
 package ru.isaifutdinov.kaefik.an_todolist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        // Обработка нажатия на кнопку + (добавить задачу)
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,9 +134,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Получаем выбранный объект
         Object item = parent.getItemAtPosition(pos);
         this.setTekNameList(item.toString());
-        Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
-
         refreshListRecyclerView(this.getTekNameList());
+        Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -143,6 +144,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(nameList), new TaskRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(final TaskToDo item) {
+//                    startActivityForResult(tmpCityModel.putExtraIntent(getApplicationContext(),  AddTaskActivity.class), RequestCode.REQUEST_CODE_CITY_WEATHER);
+                    Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
+                    intent.putExtra("titleTask",item.getTitle());
+                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
