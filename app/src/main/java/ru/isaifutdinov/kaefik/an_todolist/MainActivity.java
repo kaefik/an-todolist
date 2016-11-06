@@ -23,6 +23,7 @@ import java.util.Map;
 
 import ru.isaifutdinov.kaefik.an_todolist.Adapter.TaskRecyclerAdapter;
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
+import ru.isaifutdinov.kaefik.an_todolist.utils.RequestCode;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -157,7 +158,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     intent.putExtra(TASK_ID,item.getId());
                     intent.putExtra(TASK_DATECREATE,item.getDateToDoCreate().toString());
                     intent.putExtra(TASK_CHECK,item.isCheck());
-                     startActivity(intent);
+//                     startActivity(intent);
+                    //запуск активити для редактирования выбранной задачи
+                    startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK);
 
                     Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
@@ -168,6 +171,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RequestCode.REQUEST_CODE_EDIT_TASK) {
+            if (resultCode == RESULT_OK) {
+                //получение данных из активити AddTaskActivity
+                TaskToDo tempTaskToDo = new TaskToDo("");
+                tempTaskToDo.setTitle(data.getStringExtra(TASK_TITLE));
+                tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK,false));
+                tempTaskToDo.setDateToDoCreate(data.getStringExtra(TASK_DATECREATE));
+                tempTaskToDo.setId(data.getIntExtra(TASK_ID,0));
+                System.out.println();
+            }
+        }
+
+    }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Обработка события

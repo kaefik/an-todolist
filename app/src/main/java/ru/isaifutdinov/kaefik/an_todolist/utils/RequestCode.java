@@ -10,5 +10,6 @@ package ru.isaifutdinov.kaefik.an_todolist.utils;
 public class RequestCode {
 
     public static final int REQUEST_CODE_EDIT_TASK = 1; // код ответа для редактирования выбранной задачи
+    public static final int REQUEST_CODE_NEW_TASK = 2; // код ответа для создания новой задачи
 
 }

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.0.0_7ff20c97c00c8f14b1ad8921d40edeb31ddc9b23/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-8.4.0_b228706c36fdfc464258a5c4f67b70b04fe0e0a5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.0.0_26a4b781cbfd0949a8d099902225163bbc20a0e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8ef971503c30caf95dc121d39e0a9626494e1863">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_b66387e849c983552000b51539bc36e1663d066b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.0.0_bb4ff0b57134585a0bc23b359945ce0be5c82112/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-8.4.0_e3f01c34e052bffcc2c05d015bf528066b3706da/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="68be1bb379c2c072e90a69a34f540d3d0cc2a23f">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_450068044621a9bce1bf1ed42e581ccecb970a22/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_37bf2525038205b85ff6dc602e16f6ac10843181/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.0.0_930b374183b0266e2dac5b9a8031ae48fbe66d2c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.0.0_28595ac8e7141b394a97fef8cf1d9d51f46da7d2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/design/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-24.0.0_5b9359b463e1640df5743059215f346f3a4fc55e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-8.4.0_cd5ef82be5152b6539465234a187c03940b27b63/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/oilnur/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
+        <dex dex="/home/oilnur/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-24.0.0_ae238d515c215ebc3aacae647479c0e9cc999a2e/classes.dex" />
+    </item>
+
+</items>
