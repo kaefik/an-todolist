@@ -71,4 +71,10 @@ public class TaskToDo {
     public void setDateToDoCreate() {
         this.dateToDoCreate = new Date();
     }
+
+
+    public void setDateToDoCreate(String strDate) {
+        //TODO: сделать перевод строки в тип даты
+//        this.dateToDoCreate = new Date();
+    }
 }

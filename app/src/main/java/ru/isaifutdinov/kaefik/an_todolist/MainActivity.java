@@ -33,13 +33,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static final String TASK_DATECREATE = "dateCreateTask";
 
 
+
+
     RecyclerView mTasksRecyclerView;
     Spinner mlistTaskSpinner;
 
+    // данные
     Map<String, List<TaskToDo>> mTaskListMap; // хранилище списков дел с задачами
-    String tekNameList;
-
+    private String mCursorItemList; // название выбранного списка задач
+    private Long mCursorItemCount; // номер элемента в выбранном списке задач
     List<TaskToDo> mTaskList; // спсиок дел - пока один -> TODO: заменить на массив списка дел
+    // END - данные
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -111,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(getListNames().get(0)), null);
         refreshListRecyclerView(getListNames().get(0));
 
+        setmCursorItemCount(-1l);
+        setmCursorItemList("");
+
 
     }
 
@@ -123,15 +130,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return namesList;
     }
 
-    //возвращает текущий список задач
 
-    public String getTekNameList() {
-        return tekNameList;
+    public Long getmCursorItemCount() {
+        return mCursorItemCount;
     }
 
+    public void setmCursorItemCount(Long mCursorItemCount) {
+        this.mCursorItemCount = mCursorItemCount;
+    }
 
-    public void setTekNameList(String tekNameList) {
-        this.tekNameList = tekNameList;
+    //возвращает текущий список задач
+    public String getmCursorItemList() {
+        return mCursorItemList;
+    }
+
+    public void setmCursorItemList(String mCursorItemList) {
+        this.mCursorItemList = mCursorItemList;
     }
 
     // обработчик выбранного элемента элемента mlistTaskSpinner
@@ -139,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                int pos, long id) {
         // Получаем выбранный объект
         Object item = parent.getItemAtPosition(pos);
-        this.setTekNameList(item.toString());
-        refreshListRecyclerView(this.getTekNameList());
+        this.setmCursorItemList(item.toString());
+        refreshListRecyclerView(this.getmCursorItemList());
         Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
 
     }
@@ -150,15 +164,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(nameList), new TaskRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(final TaskToDo item) {
-//                    startActivityForResult(tmpCityModel.putExtraIntent(getApplicationContext(),  AddTaskActivity.class), RequestCode.REQUEST_CODE_CITY_WEATHER);
-
                     //передача параметров в активити AddTaskActivity.class
                     Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
                     intent.putExtra(TASK_TITLE,item.getTitle());
                     intent.putExtra(TASK_ID,item.getId());
                     intent.putExtra(TASK_DATECREATE,item.getDateToDoCreate().toString());
                     intent.putExtra(TASK_CHECK,item.isCheck());
-//                     startActivity(intent);
                     //запуск активити для редактирования выбранной задачи
                     startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK);
 
@@ -172,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
+    
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -183,8 +197,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 tempTaskToDo.setTitle(data.getStringExtra(TASK_TITLE));
                 tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK,false));
                 tempTaskToDo.setDateToDoCreate(data.getStringExtra(TASK_DATECREATE));
-                tempTaskToDo.setId(data.getIntExtra(TASK_ID,0));
-                System.out.println();
+                tempTaskToDo.setId(data.getLongExtra(TASK_ID,0l));
+                //TODO: сделать изменение выбранной задачи после редактирования
             }
         }
 
@@ -215,4 +229,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

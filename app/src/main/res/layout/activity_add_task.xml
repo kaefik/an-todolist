@@ -22,14 +22,6 @@
         android:layout_alignParentTop="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
-    <CheckBox
-        android:text="Done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/doneTaskCheckBox"
-        android:layout_alignBottom="@+id/titleTaskEditText"
-        android:layout_alignEnd="@+id/textView2" />
-
     <Button
         android:text="Apply"
         android:layout_width="match_parent"
@@ -60,5 +52,13 @@
         android:layout_above="@+id/dataCreateTaskTextView"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="77dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneTaskCheckBox"
+        android:layout_marginEnd="32dp"
+        android:layout_alignBottom="@+id/titleTaskEditText"
+        android:layout_toStartOf="@+id/titleTaskEditText" />
 
 </RelativeLayout>
