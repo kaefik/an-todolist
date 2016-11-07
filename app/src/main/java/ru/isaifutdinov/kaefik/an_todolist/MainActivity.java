@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import ru.isaifutdinov.kaefik.an_todolist.Adapter.TaskRecyclerAdapter;
+import ru.isaifutdinov.kaefik.an_todolist.Task.ListTaskToDo;
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
 import ru.isaifutdinov.kaefik.an_todolist.utils.RequestCode;
 
@@ -60,8 +61,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                TaskToDo tempTskToDo = new TaskToDo("");
+
+                //передача параметров в активити AddTaskActivity.class
+                Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
+                intent.putExtra(TASK_TITLE,tempTskToDo.getTitle());
+                intent.putExtra(TASK_ID,tempTskToDo.getId());
+
+                intent.putExtra(TASK_DATECREATE,tempTskToDo.getDateToDoCreate().toString());
+                intent.putExtra(TASK_CHECK,tempTskToDo.isCheck());
+                //запуск активити для редактирования выбранной задачи
+                startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -173,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     //запуск активити для редактирования выбранной задачи
                     startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK);
 
-                    Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
             mTasksRecyclerView.setAdapter(mAdapter);
@@ -183,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    
 
 
     @Override
@@ -200,6 +212,40 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 tempTaskToDo.setId(data.getLongExtra(TASK_ID,0l));
                 //TODO: сделать изменение выбранной задачи после редактирования
             }
+        } else {
+            if (requestCode == RequestCode.REQUEST_CODE_NEW_TASK) {
+                if (resultCode == RESULT_OK) {
+                    Toast.makeText(getApplicationContext(), "вернулись из создания нового таска",Toast.LENGTH_SHORT).show();
+                    TaskToDo tempTaskToDo = new TaskToDo("");
+                    tempTaskToDo.setTitle(data.getStringExtra(TASK_TITLE));
+                    tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK,false));
+                    tempTaskToDo.setDateToDoCreate(data.getStringExtra(TASK_DATECREATE));
+                    tempTaskToDo.setId(data.getLongExtra(TASK_ID,0l));
+
+                    List<TaskToDo> tempListToDo = mTaskListMap.get(this.getmCursorItemList());
+                    tempListToDo.add(tempTaskToDo);
+                    mTaskListMap.put(this.getmCursorItemList(),tempListToDo);
+
+                    mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(this.getmCursorItemList()), new TaskRecyclerAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(final TaskToDo item) {
+                            //передача параметров в активити AddTaskActivity.class
+                            Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
+                            intent.putExtra(TASK_TITLE,item.getTitle());
+                            intent.putExtra(TASK_ID,item.getId());
+                            intent.putExtra(TASK_DATECREATE,item.getDateToDoCreate().toString());
+                            intent.putExtra(TASK_CHECK,item.isCheck());
+                            //запуск активити для редактирования выбранной задачи
+                            startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK);
+
+//                    Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    mTasksRecyclerView.setAdapter(mAdapter);
+                }
+
+                }
+
         }
 
     }
