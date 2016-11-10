@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static final String TASK_DATECREATE = "dateCreateTask";
 
 
-
-
     RecyclerView mTasksRecyclerView;
     Spinner mlistTaskSpinner;
 
@@ -65,12 +63,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 TaskToDo tempTskToDo = new TaskToDo("");
 
                 //передача параметров в активити AddTaskActivity.class
-                Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
-                intent.putExtra(TASK_TITLE,tempTskToDo.getTitle());
-                intent.putExtra(TASK_ID,tempTskToDo.getId());
+                Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
+                intent.putExtra(TASK_TITLE, tempTskToDo.getTitle());
+                intent.putExtra(TASK_ID, tempTskToDo.getId());
 
-                intent.putExtra(TASK_DATECREATE,tempTskToDo.getDateToDoCreate().toString());
-                intent.putExtra(TASK_CHECK,tempTskToDo.isCheck());
+                intent.putExtra(TASK_DATECREATE, tempTskToDo.getDateToDoCreate().toString());
+                intent.putExtra(TASK_CHECK, tempTskToDo.isCheck());
                 //запуск активити для редактирования выбранной задачи
                 startActivityForResult(intent, RequestCode.REQUEST_CODE_NEW_TASK);
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -178,11 +176,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 @Override
                 public void onItemClick(final TaskToDo item) {
                     //передача параметров в активити AddTaskActivity.class
-                    Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
-                    intent.putExtra(TASK_TITLE,item.getTitle());
-                    intent.putExtra(TASK_ID,item.getId());
-                    intent.putExtra(TASK_DATECREATE,item.getDateToDoCreate().toString());
-                    intent.putExtra(TASK_CHECK,item.isCheck());
+                    Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
+                    intent.putExtra(TASK_TITLE, item.getTitle());
+                    intent.putExtra(TASK_ID, item.getId());
+                    intent.putExtra(TASK_DATECREATE, item.getDateToDoCreate().toString());
+                    intent.putExtra(TASK_CHECK, item.isCheck());
                     //запуск активити для редактирования выбранной задачи
                     startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK);
 
@@ -196,8 +194,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -207,34 +203,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //получение данных из активити AddTaskActivity
                 TaskToDo tempTaskToDo = new TaskToDo("");
                 tempTaskToDo.setTitle(data.getStringExtra(TASK_TITLE));
-                tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK,false));
+                tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK, false));
                 tempTaskToDo.setDateToDoCreate(data.getStringExtra(TASK_DATECREATE));
-                tempTaskToDo.setId(data.getLongExtra(TASK_ID,0l));
+                tempTaskToDo.setId(data.getLongExtra(TASK_ID, 0l));
                 //TODO: сделать изменение выбранной задачи после редактирования
             }
         } else {
             if (requestCode == RequestCode.REQUEST_CODE_NEW_TASK) {
                 if (resultCode == RESULT_OK) {
-                    Toast.makeText(getApplicationContext(), "вернулись из создания нового таска",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "вернулись из создания нового таска", Toast.LENGTH_SHORT).show();
                     TaskToDo tempTaskToDo = new TaskToDo("");
                     tempTaskToDo.setTitle(data.getStringExtra(TASK_TITLE));
-                    tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK,false));
+                    tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK, false));
                     tempTaskToDo.setDateToDoCreate(data.getStringExtra(TASK_DATECREATE));
-                    tempTaskToDo.setId(data.getLongExtra(TASK_ID,0l));
+                    tempTaskToDo.setId(data.getLongExtra(TASK_ID, 0l));
 
                     List<TaskToDo> tempListToDo = mTaskListMap.get(this.getmCursorItemList());
                     tempListToDo.add(tempTaskToDo);
-                    mTaskListMap.put(this.getmCursorItemList(),tempListToDo);
+                    mTaskListMap.put(this.getmCursorItemList(), tempListToDo);
 
                     mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(this.getmCursorItemList()), new TaskRecyclerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(final TaskToDo item) {
                             //передача параметров в активити AddTaskActivity.class
-                            Intent intent = new Intent(getApplicationContext(),AddTaskActivity.class);
-                            intent.putExtra(TASK_TITLE,item.getTitle());
-                            intent.putExtra(TASK_ID,item.getId());
-                            intent.putExtra(TASK_DATECREATE,item.getDateToDoCreate().toString());
-                            intent.putExtra(TASK_CHECK,item.isCheck());
+                            Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
+                            intent.putExtra(TASK_TITLE, item.getTitle());
+                            intent.putExtra(TASK_ID, item.getId());
+                            intent.putExtra(TASK_DATECREATE, item.getDateToDoCreate().toString());
+                            intent.putExtra(TASK_CHECK, item.isCheck());
                             //запуск активити для редактирования выбранной задачи
                             startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT_TASK);
 
@@ -244,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     mTasksRecyclerView.setAdapter(mAdapter);
                 }
 
-                }
+            }
 
         }
 
@@ -276,6 +272,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(item);
     }
 
+    public void onClickCheckBox(View v){
+        Toast.makeText(getApplicationContext(),"click  check",Toast.LENGTH_SHORT).show();
+    }
 
 
 }
