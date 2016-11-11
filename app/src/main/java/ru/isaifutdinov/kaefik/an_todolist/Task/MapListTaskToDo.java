@@ -1,44 +1,40 @@
 package ru.isaifutdinov.kaefik.an_todolist.Task;
 
 
-import android.content.Intent;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import ru.isaifutdinov.kaefik.an_todolist.AddTaskActivity;
 
 //хранилище списков дел с задачами
 
 public class MapListTaskToDo {
 
     protected Map<String, List<TaskToDo>> mTaskListMap;
-    private String mCursorItemList; // название выбранного списка задач
+    private String mCursorNameList; // название выбранного списка задач
     //    private Long mCursorItemCount; // номер элемента в выбранном списке задач
     private TaskToDo mCursorItem; // текущий элемент в выбранном списке задач
 
     public MapListTaskToDo(Map<String, List<TaskToDo>> mTaskListMap) {
         this.mTaskListMap = mTaskListMap;
         clearCursorItem();
-        clearCursorItemList();
+        clearCursorNameList();
     }
 
 
     public MapListTaskToDo() {
         this.mTaskListMap = new HashMap<String, List<TaskToDo>>();
-//        this.setmCursorItemList("");
+//        this.setmCursorNameList("");
 //        this.clearCursorItemCount();
         clearCursorItem();
-        clearCursorItemList();
+        clearCursorNameList();
     }
 
-    public String getmCursorItemList() {
-        return mCursorItemList;
+    public String getmCursorNameList() {
+        return mCursorNameList;
     }
 
-    public void setmCursorItemList(String mCursorItemList) {
-        this.mCursorItemList = mCursorItemList;
+    public void setmCursorNameList(String mCursorNameList) {
+        this.mCursorNameList = mCursorNameList;
     }
 
     // изменение текущий элемент в текущем списке задач
@@ -71,8 +67,8 @@ public class MapListTaskToDo {
         mCursorItem = null;
     }
 
-    public void clearCursorItemList() {
-        this.setmCursorItemList("");
+    public void clearCursorNameList() {
+        this.setmCursorNameList("");
     }
 
 }

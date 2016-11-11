@@ -3,8 +3,6 @@ package ru.isaifutdinov.kaefik.an_todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -101,10 +99,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mTaskListMap.setListTaskToDo(this.getListNames().get(2), tempTask);
         //END - заполнения тестовыми задачами
 
-        refreshListRecyclerView(getListNames().get(0));
+        mTaskListMap.setmCursorNameList(getListNames().get(0));
+        refreshListRecyclerView(mTaskListMap.getmCursorNameList());
 
-//        mTaskListMap.clearCursorItemCount();
-        mTaskListMap.clearCursorItemList();
+
+        mTaskListMap.clearCursorItem();
     }
 
     //возращает имена списков дел (задач) - TODO: сделать чтобы восстановление имеющихся списков дел было из файла настроек или из базы данных
@@ -121,9 +120,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                int pos, long id) {
         // Получаем выбранный объект
         Object item = parent.getItemAtPosition(pos);
-        mTaskListMap.setmCursorItemList(item.toString());
-        mTaskListMap.clearCursorItemList();
-        refreshListRecyclerView(mTaskListMap.getmCursorItemList());
+        mTaskListMap.setmCursorNameList(item.toString());
+//        mTaskListMap.clearCursorNameList();
+        refreshListRecyclerView(mTaskListMap.getmCursorNameList());
         Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
 
 
@@ -164,15 +163,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(getApplicationContext(), "вернулись из создания нового таска", Toast.LENGTH_SHORT).show();
                     TaskToDo tempTaskToDo = new TaskToDo("");
                     tempTaskToDo.getExtraIntent(data);
-                    List<TaskToDo> tempListToDo = mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorItemList());
+                    List<TaskToDo> tempListToDo = mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorNameList());
                     tempListToDo.add(tempTaskToDo);
-                    mTaskListMap.setListTaskToDo(mTaskListMap.getmCursorItemList(), tempListToDo);
+                    mTaskListMap.setListTaskToDo(mTaskListMap.getmCursorNameList(), tempListToDo);
 
-                    mAdapter = new TaskRecyclerAdapter(mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorItemList()), new TaskRecyclerAdapter.OnItemClickListener() {
+                    mAdapter = new TaskRecyclerAdapter(mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorNameList()), new TaskRecyclerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(final TaskToDo item) {
                             //запуск активити для редактирования выбранной задачи
-//                            mTaskListMap.setmCursorItem(item);
                             mTaskListMap.setmCursorItem(item);
                             startActivityForResult(item.putExtraIntent(getApplicationContext(), AddTaskActivity.class), RequestCode.REQUEST_CODE_EDIT_TASK);
                         }
