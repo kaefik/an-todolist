@@ -19,10 +19,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import ru.isaifutdinov.kaefik.an_todolist.Adapter.TaskRecyclerAdapter;
-import ru.isaifutdinov.kaefik.an_todolist.Task.ListTaskToDo;
+import ru.isaifutdinov.kaefik.an_todolist.Task.MapListTaskToDo;
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
 import ru.isaifutdinov.kaefik.an_todolist.utils.RequestCode;
 
@@ -32,11 +31,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Spinner mlistTaskSpinner;
 
     // данные
-    Map<String, List<TaskToDo>> mTaskListMap; // хранилище списков дел с задачами
-    private String mCursorItemList; // название выбранного списка задач
-    private Long mCursorItemCount; // номер элемента в выбранном списке задач
-    List<TaskToDo> mTaskList; // спсиок дел - пока один -> TODO: заменить на массив списка дел
-    // END - данные
+    MapListTaskToDo mTaskListMap;// хранилище списков дел с задачами
+
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -67,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, this.getListNames());
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                R.array.listtasks, android.R.layout.simple_spinner_item);
         // Определяем разметку для использования при выборе элемента
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Применяем адаптер к элементу spinner
@@ -89,32 +83,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //TODO: сделать выбор списка и фильтрация данных
         //заполнения тестовыми задачами
-        mTaskListMap = new ArrayMap<String, List<TaskToDo>>();
+        mTaskListMap = new MapListTaskToDo();
 
         List<TaskToDo> tempTask = new ArrayList<TaskToDo>();
         tempTask.add(new TaskToDo("Milk", false));
         tempTask.add(new TaskToDo("Хлеб"));
         tempTask.add(new TaskToDo("купить незамерзайку Love Milk How match?", true));
         tempTask.add(new TaskToDo("позввонить любимой"));
-        mTaskListMap.put(this.getListNames().get(0), tempTask);
+        mTaskListMap.setListTaskToDo(this.getListNames().get(0), tempTask);
 
         tempTask = new ArrayList<TaskToDo>();
         tempTask.add(new TaskToDo("сходить в магазин", false));
         tempTask.add(new TaskToDo("начать учить анг яз"));
-        mTaskListMap.put(this.getListNames().get(1), tempTask);
+        mTaskListMap.setListTaskToDo(this.getListNames().get(1), tempTask);
 
         tempTask = new ArrayList<TaskToDo>();
-        mTaskListMap.put(this.getListNames().get(2), tempTask);
+        mTaskListMap.setListTaskToDo(this.getListNames().get(2), tempTask);
         //END - заполнения тестовыми задачами
 
-
-//        mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(getListNames().get(0)), null);
         refreshListRecyclerView(getListNames().get(0));
 
-        setmCursorItemCount(-1l);
-        setmCursorItemList("");
-
-
+//        mTaskListMap.clearCursorItemCount();
+        mTaskListMap.clearCursorItemList();
     }
 
     //возращает имена списков дел (задач) - TODO: сделать чтобы восстановление имеющихся списков дел было из файла настроек или из базы данных
@@ -126,43 +116,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return namesList;
     }
 
-
-    public Long getmCursorItemCount() {
-        return mCursorItemCount;
-    }
-
-    public void setmCursorItemCount(Long mCursorItemCount) {
-        this.mCursorItemCount = mCursorItemCount;
-    }
-
-    //возвращает текущий список задач
-    public String getmCursorItemList() {
-        return mCursorItemList;
-    }
-
-    public void setmCursorItemList(String mCursorItemList) {
-        this.mCursorItemList = mCursorItemList;
-    }
-
     // обработчик выбранного элемента элемента mlistTaskSpinner
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // Получаем выбранный объект
         Object item = parent.getItemAtPosition(pos);
-        this.setmCursorItemList(item.toString());
-        refreshListRecyclerView(this.getmCursorItemList());
+        mTaskListMap.setmCursorItemList(item.toString());
+        mTaskListMap.clearCursorItemList();
+        refreshListRecyclerView(mTaskListMap.getmCursorItemList());
         Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
+
 
     }
 
     public void refreshListRecyclerView(String nameList) {
-        if (mTaskListMap.get(nameList) != null) {
-            mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(nameList), new TaskRecyclerAdapter.OnItemClickListener() {
+        if (mTaskListMap.getListTaskToDo(nameList) != null) {
+            mAdapter = new TaskRecyclerAdapter(mTaskListMap.getListTaskToDo(nameList), new TaskRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(final TaskToDo item) {
+                    mTaskListMap.setmCursorItem(item);
                     startActivityForResult(item.putExtraIntent(getApplicationContext(), AddTaskActivity.class), RequestCode.REQUEST_CODE_EDIT_TASK);
-
-//                    Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
             mTasksRecyclerView.setAdapter(mAdapter);
@@ -182,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 TaskToDo tempTaskToDo = new TaskToDo("");
                 tempTaskToDo.getExtraIntent(data);
                 //TODO: сделать изменение выбранной задачи после редактирования
+                mTaskListMap.modifyCurrentItemInCurrentList(tempTaskToDo);
+                mTaskListMap.clearCursorItem();
             }
         } else {
             if (requestCode == RequestCode.REQUEST_CODE_NEW_TASK) {
@@ -189,35 +164,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(getApplicationContext(), "вернулись из создания нового таска", Toast.LENGTH_SHORT).show();
                     TaskToDo tempTaskToDo = new TaskToDo("");
                     tempTaskToDo.getExtraIntent(data);
-//                    tempTaskToDo.setTitle(data.getStringExtra(TASK_TITLE));
-//                    tempTaskToDo.setCheck(data.getBooleanExtra(TASK_CHECK, false));
-//                    tempTaskToDo.setDateToDoCreate(data.getStringExtra(TASK_DATECREATE));
-//                    tempTaskToDo.setId(data.getLongExtra(TASK_ID, 0l));
-
-                    List<TaskToDo> tempListToDo = mTaskListMap.get(this.getmCursorItemList());
+                    List<TaskToDo> tempListToDo = mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorItemList());
                     tempListToDo.add(tempTaskToDo);
-                    mTaskListMap.put(this.getmCursorItemList(), tempListToDo);
+                    mTaskListMap.setListTaskToDo(mTaskListMap.getmCursorItemList(), tempListToDo);
 
-                    mAdapter = new TaskRecyclerAdapter(mTaskListMap.get(this.getmCursorItemList()), new TaskRecyclerAdapter.OnItemClickListener() {
+                    mAdapter = new TaskRecyclerAdapter(mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorItemList()), new TaskRecyclerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(final TaskToDo item) {
-                            //передача параметров в активити AddTaskActivity.class
-//                            Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-//                            intent.putExtra(TASK_TITLE, item.getTitle());
-//                            intent.putExtra(TASK_ID, item.getId());
-//                            intent.putExtra(TASK_DATECREATE, item.getDateToDoCreate().toString());
-//                            intent.putExtra(TASK_CHECK, item.isCheck());
                             //запуск активити для редактирования выбранной задачи
+//                            mTaskListMap.setmCursorItem(item);
+                            mTaskListMap.setmCursorItem(item);
                             startActivityForResult(item.putExtraIntent(getApplicationContext(), AddTaskActivity.class), RequestCode.REQUEST_CODE_EDIT_TASK);
-
-//                    Toast.makeText(getApplicationContext(), "нажали на элемент списка -> " + item.getTitle(), Toast.LENGTH_SHORT).show();
                         }
                     });
                     mTasksRecyclerView.setAdapter(mAdapter);
+                    mTaskListMap.clearCursorItem();
                 }
             }
         }
-
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

@@ -3,6 +3,7 @@ package ru.isaifutdinov.kaefik.an_todolist.Task;
 
 import android.content.Intent;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,14 +13,24 @@ import ru.isaifutdinov.kaefik.an_todolist.AddTaskActivity;
 
 public class MapListTaskToDo {
 
-    Map<String, List<TaskToDo>> mTaskListMap;
+    protected Map<String, List<TaskToDo>> mTaskListMap;
     private String mCursorItemList; // название выбранного списка задач
-    private Long mCursorItemCount; // номер элемента в выбранном списке задач
+    //    private Long mCursorItemCount; // номер элемента в выбранном списке задач
+    private TaskToDo mCursorItem; // текущий элемент в выбранном списке задач
 
     public MapListTaskToDo(Map<String, List<TaskToDo>> mTaskListMap) {
         this.mTaskListMap = mTaskListMap;
-        this.setmCursorItemList("");
-        this.setmCursorItemCount(-1L);
+        clearCursorItem();
+        clearCursorItemList();
+    }
+
+
+    public MapListTaskToDo() {
+        this.mTaskListMap = new HashMap<String, List<TaskToDo>>();
+//        this.setmCursorItemList("");
+//        this.clearCursorItemCount();
+        clearCursorItem();
+        clearCursorItemList();
     }
 
     public String getmCursorItemList() {
@@ -30,22 +41,39 @@ public class MapListTaskToDo {
         this.mCursorItemList = mCursorItemList;
     }
 
-    public Long getmCursorItemCount() {
-        return mCursorItemCount;
+    // изменение текущий элемент в текущем списке задач
+    public void modifyCurrentItemInCurrentList(TaskToDo taskToDo){
+        // TODO: изменение текущий элемент в текущем списке задач
+
     }
 
-    public void setmCursorItemCount(Long mCursorItemCount) {
-        this.mCursorItemCount = mCursorItemCount;
+    //получение выбранного текущего элемента
+    public TaskToDo getmCursorItem() {
+        return mCursorItem;
     }
+
+    // текущий элемент
+    public void setmCursorItem(TaskToDo mCursorItem) {
+        this.mCursorItem = mCursorItem;
+    }
+
+    // получить спиcок дел по названию списка
+    public List<TaskToDo> getListTaskToDo(String str) {
+        return this.mTaskListMap.get(str);
+    }
+
+    public void setListTaskToDo(String strList, List<TaskToDo> listTaskToDo) {
+        mTaskListMap.put(strList, listTaskToDo);
+    }
+
+    //очистить текущий элемент
+    public void clearCursorItem() {
+        mCursorItem = null;
+    }
+
+    public void clearCursorItemList() {
+        this.setmCursorItemList("");
+    }
+
 }
 
-
-////заполнения тестовыми задачами
-//mTaskListMap = new ArrayMap<String, List<TaskToDo>>();
-//
-//        List<TaskToDo> tempTask = new ArrayList<TaskToDo>();
-//        tempTask.add(new TaskToDo("Milk", false));
-//        tempTask.add(new TaskToDo("Хлеб"));
-//        tempTask.add(new TaskToDo("купить незамерзайку Love Milk How match?", true));
-//        tempTask.add(new TaskToDo("позввонить любимой"));
-//        mTaskListMap.put(this.getListNames().get(0), tempTask);

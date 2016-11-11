@@ -91,7 +91,7 @@ public class TaskToDo {
     }
 
     // добавление данных класса в Intent
-    public Intent putExtraIntent(Context context,Class<?> klass) {
+    public Intent putExtraIntent(Context context, Class<?> klass) {
         Intent intent = new Intent(context, klass);
         intent.putExtra(TASK_TITLE, this.getTitle());
         intent.putExtra(TASK_ID, this.getId());
