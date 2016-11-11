@@ -1,10 +1,22 @@
 package ru.isaifutdinov.kaefik.an_todolist.Task;
 
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.Date;
+
+import ru.isaifutdinov.kaefik.an_todolist.AddTaskActivity;
+import ru.isaifutdinov.kaefik.an_todolist.MainActivity;
 
 // класс задачи
 public class TaskToDo {
 
+    //параметры для передачи
+    public static final String TASK_TITLE = "titleTask";
+    public static final String TASK_ID = "idTask";
+    public static final String TASK_CHECK = "checkTask";
+    public static final String TASK_DATECREATE = "dateCreateTask";
+    //END - параметры для передачи
 
     private Long id;  // id задачи
     private String title;  // заголовок задачи
@@ -77,4 +89,25 @@ public class TaskToDo {
         //TODO: сделать перевод строки в тип даты
 //        this.dateToDoCreate = new Date();
     }
+
+    // добавление данных класса в Intent
+    public Intent putExtraIntent(Context context,Class<?> klass) {
+        Intent intent = new Intent(context, klass);
+        intent.putExtra(TASK_TITLE, this.getTitle());
+        intent.putExtra(TASK_ID, this.getId());
+        intent.putExtra(TASK_DATECREATE, this.getDateToDoCreate().toString());
+        intent.putExtra(TASK_CHECK, this.isCheck());
+        return intent;
+    }
+
+    // получение данных от Intent
+    public void getExtraIntent(Intent intent) {
+        this.setId(intent.getLongExtra(TASK_ID, 0l));
+        this.setTitle(intent.getStringExtra(TASK_TITLE));
+        this.setCheck(intent.getBooleanExtra(TASK_CHECK, false));
+        //TODO: сделать преобразование из String to Date
+//        this.getDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
+    }
+
+
 }

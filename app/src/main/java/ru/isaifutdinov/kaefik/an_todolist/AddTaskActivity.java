@@ -15,6 +15,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
+
 public class AddTaskActivity extends AppCompatActivity {
 
     EditText mTitleTaskEditText;
@@ -41,29 +43,28 @@ public class AddTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent();
-                intent.putExtra(MainActivity.TASK_TITLE, mTitleTaskEditText.getText().toString());
-                intent.putExtra(MainActivity.TASK_ID, 0);
-                intent.putExtra(MainActivity.TASK_DATECREATE, mDataCreateTaskTextView.getText().toString());
-                intent.putExtra(MainActivity.TASK_CHECK, mDoneTaskCheckBox.isChecked());
+                TaskToDo tempTaskTODo = new TaskToDo("");
+                tempTaskTODo.setId(0l);
+                tempTaskTODo.setTitle(mTitleTaskEditText.getText().toString());
+                tempTaskTODo.setDateToDoCreate(mDataCreateTaskTextView.getText().toString());
+                tempTaskTODo.setCheck(mDoneTaskCheckBox.isChecked());
 
-                setResult(RESULT_OK, intent);
+                setResult(RESULT_OK, tempTaskTODo.putExtraIntent(getApplicationContext(), MainActivity.class));
                 finish();
 
             }
         });
 
         // получение данных от основного активити
-        Intent intent = getIntent();
-//        intent.putExtra(TASK_ID,item.getId());
-        mTitleTaskEditText.setText(intent.getStringExtra(MainActivity.TASK_TITLE));
-        mDoneTaskCheckBox.setChecked(intent.getBooleanExtra(MainActivity.TASK_CHECK, false));
-        mDataCreateTaskTextView.setText(intent.getStringExtra(MainActivity.TASK_DATECREATE));
+//        Intent intent = getIntent();
+        TaskToDo tempTaskTodo = new TaskToDo("");
+        tempTaskTodo.getExtraIntent(getIntent());
+        //TODO: сделать получение ID и DateCreate
+//        tempTaskTodo.getId();
+        mTitleTaskEditText.setText(tempTaskTodo.getTitle());
+        mDoneTaskCheckBox.setChecked(tempTaskTodo.isCheck());
+//        mDataCreateTaskTextView.setText(tempTaskTodo.getDateToDoCreate());
 
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -91,40 +92,4 @@ public class AddTaskActivity extends AppCompatActivity {
 //
 //    }
 
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("AddTask Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }
