@@ -38,8 +38,21 @@ public class MapListTaskToDo {
     }
 
     // изменение текущий элемент в текущем списке задач
-    public void modifyCurrentItemInCurrentList(TaskToDo taskToDo){
+    public void modifyCurrentItemInCurrentList(TaskToDo taskToDo) {
         // TODO: изменение текущий элемент в текущем списке задач
+        List<TaskToDo> tempListTaskToDo = getListTaskToDo(getmCursorNameList());
+
+//        for (TaskToDo itaskToDo : tempListTaskToDo) {
+//            if (itaskToDo.compare(taskToDo)) {
+//
+//            }
+//        }
+
+//        String catName = "";
+//        for (String name : mCatNames) {
+//            catName = catName + name + " ";
+//        }
+//
 
     }
 

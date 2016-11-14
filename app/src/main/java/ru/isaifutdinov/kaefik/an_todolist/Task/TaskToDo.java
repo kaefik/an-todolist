@@ -109,5 +109,31 @@ public class TaskToDo {
 //        this.getDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
     }
 
+    //функция сравнения задач  - сделано проверки только равенства title и check
+    public boolean compareTitle(TaskToDo taskToDo){
+        if(getTitle().compareTo(taskToDo.getTitle())==0){
+            return true; // совпадение title и check
+        } else {
+            return  false;
+        }
+    }
+
+    //функция сравнения задач  - сделано проверки только равенства title и check
+    public boolean compareCheck(TaskToDo taskToDo){
+        if(isCheck()==taskToDo.isCheck()){
+            return true; // совпадение title и check
+        } else {
+            return  false;
+        }
+    }
+
+
+    public boolean compare(TaskToDo taskToDo){
+        if(compareTitle(taskToDo) && compareCheck(taskToDo)){
+            return true;
+        }else
+    }
+
+
 
 }
