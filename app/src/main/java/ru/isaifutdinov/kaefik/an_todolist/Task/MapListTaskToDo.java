@@ -1,6 +1,9 @@
 package ru.isaifutdinov.kaefik.an_todolist.Task;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,17 +45,15 @@ public class MapListTaskToDo {
         // TODO: изменение текущий элемент в текущем списке задач
         List<TaskToDo> tempListTaskToDo = getListTaskToDo(getmCursorNameList());
 
-//        for (TaskToDo itaskToDo : tempListTaskToDo) {
-//            if (itaskToDo.compare(taskToDo)) {
-//
-//            }
-//        }
+        for (int i = 0; i < tempListTaskToDo.size(); i++) {
+            if (tempListTaskToDo.get(i).compare(this.getmCursorItem())) {
+                setItemTaskToDo(getmCursorNameList(),i,taskToDo);
+            }
+        }
 
-//        String catName = "";
-//        for (String name : mCatNames) {
-//            catName = catName + name + " ";
-//        }
-//
+
+
+        System.out.println("");
 
     }
 
@@ -71,9 +72,20 @@ public class MapListTaskToDo {
         return this.mTaskListMap.get(str);
     }
 
+    //добавить в список название strList
     public void setListTaskToDo(String strList, List<TaskToDo> listTaskToDo) {
         mTaskListMap.put(strList, listTaskToDo);
     }
+
+
+    //изменить в списке с названием strList с номером numItem поменять на задачу taskToDo
+    public void setItemTaskToDo(String strList, int numItem, TaskToDo taskToDo) {
+        List<TaskToDo> tempListTaskToDo = getListTaskToDo(strList);
+        tempListTaskToDo.set(numItem,taskToDo);
+        mTaskListMap.put(strList, tempListTaskToDo);
+    }
+
+
 
     //очистить текущий элемент
     public void clearCursorItem() {

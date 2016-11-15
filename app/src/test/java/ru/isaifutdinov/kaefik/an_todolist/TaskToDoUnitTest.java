@@ -31,16 +31,27 @@ public class TaskToDoUnitTest {
     @Test
     public void compareTitleAndCheck_isCorrect() throws Exception {
 
-//        assertEquals(4, 2 + 2);
-
         assertEquals(mTaskToDo1.compareTitle(mTaskToDo2),false);
         assertEquals(mTaskToDo1.compareTitle(mTaskToDo1),true);
         assertEquals(mTaskToDo2.compareTitle(mTaskToDo3),true);
 
         assertEquals(mTaskToDo2.compareCheck(mTaskToDo3),true);
         assertEquals(mTaskToDo1.compareCheck(mTaskToDo3),false);
+    }
 
+
+    @Test
+    public void compare_isCorrect() throws Exception {
+
+        assertEquals(mTaskToDo1.compare(mTaskToDo3),false);
+        assertEquals(mTaskToDo3.compare(mTaskToDo3),true);
+
+//        public boolean compare(TaskToDo taskToDo) {
 
     }
+
+
+    // изменение текущий элемент в текущем списке задач
+//    public void modifyCurrentItemInCurrentList(TaskToDo taskToDo)
 
 }

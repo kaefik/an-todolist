@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //TODO: сделать изменение выбранной задачи после редактирования
                 mTaskListMap.modifyCurrentItemInCurrentList(tempTaskToDo);
                 mTaskListMap.clearCursorItem();
+                refreshListRecyclerView(mTaskListMap.getmCursorNameList());
             }
         } else {
             if (requestCode == RequestCode.REQUEST_CODE_NEW_TASK) {

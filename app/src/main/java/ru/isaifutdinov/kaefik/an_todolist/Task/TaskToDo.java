@@ -110,30 +110,31 @@ public class TaskToDo {
     }
 
     //функция сравнения задач  - сделано проверки только равенства title и check
-    public boolean compareTitle(TaskToDo taskToDo){
-        if(getTitle().compareTo(taskToDo.getTitle())==0){
+    public boolean compareTitle(TaskToDo taskToDo) {
+        if (getTitle().compareTo(taskToDo.getTitle()) == 0) {
             return true; // совпадение title и check
         } else {
-            return  false;
+            return false;
         }
     }
 
     //функция сравнения задач  - сделано проверки только равенства title и check
-    public boolean compareCheck(TaskToDo taskToDo){
-        if(isCheck()==taskToDo.isCheck()){
+    public boolean compareCheck(TaskToDo taskToDo) {
+        if (isCheck() == taskToDo.isCheck()) {
             return true; // совпадение title и check
         } else {
-            return  false;
+            return false;
         }
     }
 
-
-    public boolean compare(TaskToDo taskToDo){
-        if(compareTitle(taskToDo) && compareCheck(taskToDo)){
+    //функция сравнения двух задач - проверка по Title и Check
+    public boolean compare(TaskToDo taskToDo) {
+        if (compareTitle(taskToDo) && compareCheck(taskToDo)) {
             return true;
-        }else
+        } else {
+            return false;
+        }
     }
-
 
 
 }
