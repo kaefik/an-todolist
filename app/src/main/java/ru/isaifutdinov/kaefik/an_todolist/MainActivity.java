@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 //получение данных из активити AddTaskActivity
                 TaskToDo tempTaskToDo = new TaskToDo("");
                 tempTaskToDo.getExtraIntent(data);
-                //TODO: сделать изменение выбранной задачи после редактирования
                 mTaskListMap.modifyCurrentItemInCurrentList(tempTaskToDo);
                 mTaskListMap.clearCursorItem();
                 refreshListRecyclerView(mTaskListMap.getmCursorNameList());

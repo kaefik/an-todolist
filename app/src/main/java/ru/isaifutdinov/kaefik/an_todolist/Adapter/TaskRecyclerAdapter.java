@@ -15,7 +15,7 @@ import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.ViewHolder> {
 
-    private List<TaskToDo> mDataSet;  // TODO: поменять на список задач
+    private List<TaskToDo> mDataSet;  // TODO: поменять на список задач ???
 
     private final OnItemClickListener listener;
 

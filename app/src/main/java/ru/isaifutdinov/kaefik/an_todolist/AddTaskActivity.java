@@ -59,11 +59,11 @@ public class AddTaskActivity extends AppCompatActivity {
 //        Intent intent = getIntent();
         TaskToDo tempTaskTodo = new TaskToDo("");
         tempTaskTodo.getExtraIntent(getIntent());
-        //TODO: сделать получение ID и DateCreate
+        //TODO: сделать получение ID
 //        tempTaskTodo.getId();
         mTitleTaskEditText.setText(tempTaskTodo.getTitle());
         mDoneTaskCheckBox.setChecked(tempTaskTodo.isCheck());
-//        mDataCreateTaskTextView.setText(tempTaskTodo.getDateToDoCreate());
+        mDataCreateTaskTextView.setText(tempTaskTodo.getDateToDoCreate());
 
     }
 

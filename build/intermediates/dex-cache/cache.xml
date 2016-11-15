@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="e090f75b2430381ceca5345a88a483a5708e4952">
+        sha1="09a1740137fe441abee78f528a60098a732b05ef">
         <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_1a35e03104bb2423cf07d7ffd8045f9d05750929/classes.dex" />
     </item>
     <item
@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="3d1fa4d304120ce0c5c80a87946d656ff9bf0ba1">
+        sha1="e823ed64997b5480ed995254a93826c36029a906">
         <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_e0ec77fe0cf4f45552ac4e89682491deb2efed9c/classes.dex" />
     </item>
     <item

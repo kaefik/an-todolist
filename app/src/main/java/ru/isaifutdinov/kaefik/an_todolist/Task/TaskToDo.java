@@ -2,7 +2,9 @@ package ru.isaifutdinov.kaefik.an_todolist.Task;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.format.DateFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ru.isaifutdinov.kaefik.an_todolist.AddTaskActivity;
@@ -21,7 +23,7 @@ public class TaskToDo {
     private Long id;  // id задачи
     private String title;  // заголовок задачи
     private boolean check;  // true - задача выполнена, иначе не выполнена
-    private Date dateToDoCreate;  // дата/время создания задачи
+    private String dateToDoCreate;  // дата/время создания задачи
 //    private String description;  // описание задачи
 //    private String linkToPhoto;  // ссылка на фото для задачи
 //    private String location;   // местоположение для задачи
@@ -29,7 +31,7 @@ public class TaskToDo {
 //    private Long priority;  // приоритет задачи
 
 
-    public TaskToDo(Long id, String title, boolean check, Date dateToDoCreate) {
+    public TaskToDo(Long id, String title, boolean check, String dateToDoCreate) {
         this.id = id;
         this.title = title;
         this.check = check;
@@ -75,20 +77,27 @@ public class TaskToDo {
         this.check = check;
     }
 
-    public Date getDateToDoCreate() {
+    public String getDateToDoCreate() {
         return dateToDoCreate;
     }
 
     // присвоение текущей даты и времени
     public void setDateToDoCreate() {
-        this.dateToDoCreate = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        this.dateToDoCreate = df.format(new Date());
+
     }
 
 
     public void setDateToDoCreate(String strDate) {
-        //TODO: сделать перевод строки в тип даты
-//        this.dateToDoCreate = new Date();
+        // TODO: сделать проверку strDate на соответствия шаблона "dd-MM-yyyy HH:mm:ss"
+        this.dateToDoCreate = strDate;
+
     }
+
+
+
+
 
     // добавление данных класса в Intent
     public Intent putExtraIntent(Context context, Class<?> klass) {
@@ -105,8 +114,7 @@ public class TaskToDo {
         this.setId(intent.getLongExtra(TASK_ID, 0l));
         this.setTitle(intent.getStringExtra(TASK_TITLE));
         this.setCheck(intent.getBooleanExtra(TASK_CHECK, false));
-        //TODO: сделать преобразование из String to Date
-//        this.getDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
+        this.setDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
     }
 
     //функция сравнения задач  - сделано проверки только равенства title и check

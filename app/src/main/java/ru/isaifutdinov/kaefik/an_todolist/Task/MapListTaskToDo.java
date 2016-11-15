@@ -42,7 +42,6 @@ public class MapListTaskToDo {
 
     // изменение текущий элемент в текущем списке задач
     public void modifyCurrentItemInCurrentList(TaskToDo taskToDo) {
-        // TODO: изменение текущий элемент в текущем списке задач
         List<TaskToDo> tempListTaskToDo = getListTaskToDo(getmCursorNameList());
 
         for (int i = 0; i < tempListTaskToDo.size(); i++) {
@@ -50,11 +49,6 @@ public class MapListTaskToDo {
                 setItemTaskToDo(getmCursorNameList(),i,taskToDo);
             }
         }
-
-
-
-        System.out.println("");
-
     }
 
     //получение выбранного текущего элемента
