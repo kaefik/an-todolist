@@ -18,12 +18,14 @@ public class TaskToDo {
     public static final String TASK_ID = "idTask";
     public static final String TASK_CHECK = "checkTask";
     public static final String TASK_DATECREATE = "dateCreateTask";
+    public static final String TASK_UPDATECHECK = "updateCheckTask"; // параметр модификации задачи
     //END - параметры для передачи
 
     private Long id;  // id задачи
     private String title;  // заголовок задачи
     private boolean check;  // true - задача выполнена, иначе не выполнена
     private String dateToDoCreate;  // дата/время создания задачи
+    private  boolean updateCheck;  // true - задача была изменена, иначе ничего не меняли
 //    private String description;  // описание задачи
 //    private String linkToPhoto;  // ссылка на фото для задачи
 //    private String location;   // местоположение для задачи
@@ -95,9 +97,13 @@ public class TaskToDo {
 
     }
 
+    public boolean isUpdateCheck() {
+        return updateCheck;
+    }
 
-
-
+    public void setUpdateCheck(boolean updateCheck) {
+        this.updateCheck = updateCheck;
+    }
 
     // добавление данных класса в Intent
     public Intent putExtraIntent(Context context, Class<?> klass) {
@@ -106,6 +112,7 @@ public class TaskToDo {
         intent.putExtra(TASK_ID, this.getId());
         intent.putExtra(TASK_DATECREATE, this.getDateToDoCreate().toString());
         intent.putExtra(TASK_CHECK, this.isCheck());
+        intent.putExtra(TASK_UPDATECHECK, this.isUpdateCheck());
         return intent;
     }
 
@@ -115,6 +122,7 @@ public class TaskToDo {
         this.setTitle(intent.getStringExtra(TASK_TITLE));
         this.setCheck(intent.getBooleanExtra(TASK_CHECK, false));
         this.setDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
+        this.setUpdateCheck(intent.getStringExtra(TASK_UPDATECHECK));
     }
 
     //функция сравнения задач  - сделано проверки только равенства title и check

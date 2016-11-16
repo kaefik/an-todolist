@@ -26,8 +26,6 @@ public class MapListTaskToDo {
 
     public MapListTaskToDo() {
         this.mTaskListMap = new HashMap<String, List<TaskToDo>>();
-//        this.setmCursorNameList("");
-//        this.clearCursorItemCount();
         clearCursorItem();
         clearCursorNameList();
     }
@@ -43,6 +41,8 @@ public class MapListTaskToDo {
     // изменение текущий элемент в текущем списке задач
     public void modifyCurrentItemInCurrentList(TaskToDo taskToDo) {
         List<TaskToDo> tempListTaskToDo = getListTaskToDo(getmCursorNameList());
+
+        taskToDo.setUpdateCheck(true); // помечаем данную задачу как измененную
 
         for (int i = 0; i < tempListTaskToDo.size(); i++) {
             if (tempListTaskToDo.get(i).compare(this.getmCursorItem())) {
