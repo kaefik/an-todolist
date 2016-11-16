@@ -122,7 +122,7 @@ public class TaskToDo {
         this.setTitle(intent.getStringExtra(TASK_TITLE));
         this.setCheck(intent.getBooleanExtra(TASK_CHECK, false));
         this.setDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
-        this.setUpdateCheck(intent.getStringExtra(TASK_UPDATECHECK));
+        this.setUpdateCheck(intent.getBooleanExtra(TASK_UPDATECHECK,false));
     }
 
     //функция сравнения задач  - сделано проверки только равенства title и check
