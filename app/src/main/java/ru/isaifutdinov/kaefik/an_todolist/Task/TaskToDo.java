@@ -14,8 +14,8 @@ import ru.isaifutdinov.kaefik.an_todolist.MainActivity;
 public class TaskToDo {
 
     //параметры для передачи
-    public static final String TASK_TITLE = "titleTask";
     public static final String TASK_ID = "idTask";
+    public static final String TASK_TITLE = "titleTask";
     public static final String TASK_CHECK = "checkTask";
     public static final String TASK_DATECREATE = "dateCreateTask";
     public static final String TASK_UPDATECHECK = "updateCheckTask"; // параметр модификации задачи
@@ -25,7 +25,7 @@ public class TaskToDo {
     private String title;  // заголовок задачи
     private boolean check;  // true - задача выполнена, иначе не выполнена
     private String dateToDoCreate;  // дата/время создания задачи
-    private  boolean updateCheck;  // true - задача была изменена, иначе ничего не меняли
+    private boolean updateCheck;  // true - задача была изменена, иначе ничего не меняли
 //    private String description;  // описание задачи
 //    private String linkToPhoto;  // ссылка на фото для задачи
 //    private String location;   // местоположение для задачи
@@ -122,7 +122,7 @@ public class TaskToDo {
         this.setTitle(intent.getStringExtra(TASK_TITLE));
         this.setCheck(intent.getBooleanExtra(TASK_CHECK, false));
         this.setDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));
-        this.setUpdateCheck(intent.getBooleanExtra(TASK_UPDATECHECK,false));
+        this.setUpdateCheck(intent.getBooleanExtra(TASK_UPDATECHECK, false));
     }
 
     //функция сравнения задач  - сделано проверки только равенства title и check

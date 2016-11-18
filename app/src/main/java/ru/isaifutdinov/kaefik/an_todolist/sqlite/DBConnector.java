@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
@@ -13,38 +14,52 @@ public class DBConnector {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "maplisttasktodoDb"; // БД в которой таблица это
-    private String mTableName; // название таблицы
+    private List<String> mNameTableList; // массив названия таблиц, каждая таблица это отдельный список задач
 
 
-    // TODO: имена полей таблицы должны соответствовать классу TaskToDo -
-    // ....
+    // TODO: имена полей таблицы должны соответствовать классу TaskToDo - здесь все поля кроме updateCheck
+    public static final String TASK_ID = "idTask";
+    public static final String TASK_TITLE = "titleTask";
+    public static final String TASK_CHECK = "checkTask";
+    public static final String TASK_DATECREATE = "dateCreateTask";
 
     private SQLiteDatabase mDataBase;
+    private OpenHelper mOpenHelper;
 
-    public DBConnector(Context context, String tableName) {
-        this.mTableName = tableName;
+    public DBConnector(Context context, List<String> nameTableList) {
+        this.mNameTableList = nameTableList;
+
+        // открываем (или создаем и открываем) БД для записи и чтения
+        mOpenHelper = new OpenHelper(context, mNameTableList);
+        mDataBase = mOpenHelper.getWritableDatabase();
     }
 
     //класс для создания БД
     private class OpenHelper extends SQLiteOpenHelper {
 
-        private List<String> nameTableList; // массив названия таблиц, каждая таблица это отдельный список задач
+//        private List<String> mNameTableList; // массив названия таблиц, каждая таблица это отдельный список задач
 
         public OpenHelper(Context context, List<String> nameTableList) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
-            this.nameTableList = nameTableList;
+//            .mNameTableList = nameTableList;
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String query ="create table " + nameTable + "(" + TaskToDo.TASK_ID
-                    + " integer primary key," + TaskToDo.TASK_TITLE + " text," + TaskToDo.TASK_CHECK + "integer" + TaskToDo.TASK_DATECREATE + "text" + TaskToDo.TASK_UPDATECHECK + "integer" + ")";
-            db.execSQL(query);
+            if (mNameTableList == null) return;
+            for (String nameTable : mNameTableList) {
+                String query = "create table " + nameTable + "(" + TASK_ID
+                        + " integer primary key," + TASK_TITLE + " text," + TASK_CHECK + "integer" + TASK_DATECREATE + "text"  + ")";
+                db.execSQL(query);
+            }
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("drop table if exists " + nameTable);
+            if (mNameTableList == null) return;
+            for (String nameTable : mNameTableList) {
+                db.execSQL("drop table if exists " + nameTable);
+            }
         }
     }
 }
