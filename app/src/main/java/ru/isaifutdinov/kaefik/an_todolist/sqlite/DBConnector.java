@@ -1,6 +1,7 @@
 package ru.isaifutdinov.kaefik.an_todolist.sqlite;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -34,6 +35,20 @@ public class DBConnector {
         mDataBase = mOpenHelper.getWritableDatabase();
     }
 
+
+    // Метод добавления строки в БД,  в таблицу tableName
+    public long insert(TaskToDo md, String tableName) {
+        ContentValues cv=new ContentValues();
+        cv.put(TASK_ID, md.getId());
+        cv.put(TASK_TITLE, md.getTitle());
+        cv.put(TASK_CHECK, md.isCheck());
+        return mDataBase.insert(tableName, null, cv);
+    }
+
+
+
+
+
     //класс для создания БД
     private class OpenHelper extends SQLiteOpenHelper {
 
@@ -48,8 +63,8 @@ public class DBConnector {
         public void onCreate(SQLiteDatabase db) {
             if (mNameTableList == null) return;
             for (String nameTable : mNameTableList) {
-                String query = "create table " + nameTable + "(" + TASK_ID
-                        + " integer primary key," + TASK_TITLE + " text," + TASK_CHECK + "integer" + TASK_DATECREATE + "text"  + ")";
+                String query = "CREATE TABLE " + nameTable + "(" + TASK_ID
+                        + " INTEGER primary key," + TASK_TITLE + " TEXT," + TASK_CHECK + " INTEGER," + TASK_DATECREATE + " TEXT"  + ")";
                 db.execSQL(query);
             }
         }

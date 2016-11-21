@@ -3,12 +3,30 @@
 
     <item
         is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/design/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.android.support-design-24.0.0_2abf6728b3ff83bed7dcf4ad0a750cdbeb5f9adc.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/isaifutdinov/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.1.1/67ff45d9ae02e583d0f9b3432a5ebbe05c30c966/javawriter-2.1.1.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="67ff45d9ae02e583d0f9b3432a5ebbe05c30c966">
         <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/androidTest/debug/javawriter-2.1.1_9ae08f51334e19eb20971f3b8ed0ecba544894f5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_f3f8e0bb14baa4a48bae526fb9304e9edd304dd2.jar" />
     </item>
     <item
         is-multidex="false"
@@ -30,6 +48,24 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-24.0.0_0c4a62e80e2fe79f91a9e2118864a948a70d8d2b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-24.0.0_973d3941241b2b964a51d2247da1133c9e027bd4.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support.test/runner/0.5/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -39,12 +75,66 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.0.0_8db0fa853ee9354c76e6771ea0fd25143207871e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_0b16c7c7d725409fbffc358a8eb8679ee4d4e382.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/support-annotations-24.0.0_cf33f85e8ae73f787ae1035455b4e2156ebb1b83.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/isaifutdinov/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="42a25dc3219429f0e5d060061f71acb49bf010a0">
         <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/androidTest/debug/hamcrest-core-1.3_f2dc07af152a03d3367fe56aecbc7c142af65a5a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_8a4e113d52ec5a89078a2b46cb12398506b3d8e5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_7ff76b9d30a3ecc34fa0b424a770a0287a63ee53.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-24.0.0_b2bee1234e5ca59e24bb9f9cd26331028e9b8f42.jar" />
     </item>
     <item
         is-multidex="false"
@@ -108,6 +198,15 @@
         revision="24.0.3"
         sha1="7e11799d8a26bfa5d48acafe012ee5545b9bf468">
         <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/androidTest/debug/com.android.support.test-rules-0.5_468c27e57111091de374c5d6634c03c3169851c9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="/home/isaifutdinov/prj/an-todolist/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-24.0.0_8e693207da77842255797bd8366a2dae05324207.jar" />
     </item>
     <item
         is-multidex="false"
