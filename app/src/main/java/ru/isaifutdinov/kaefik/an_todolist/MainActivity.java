@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //возращает имена списков дел (задач) - TODO: сделать чтобы восстановление имеющихся списков дел было из файла настроек или из базы данных
     public List<String> getListNames() {
         List<String> namesList = new ArrayList<String>();
-        namesList.add("All");
+        namesList.add("Alls");
         namesList.add("Today");
         namesList.add("Shopping");
         return namesList;

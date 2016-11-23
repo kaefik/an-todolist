@@ -50,6 +50,15 @@ public class TaskToDoUnitTest {
 
     }
 
+    @Test
+    public void setDateCreateTask_isCorrect() throws Exception {
+
+        mTaskToDo1.setDateToDoCreate();
+        System.out.println(mTaskToDo1.getDateToDoCreate());
+
+
+    }
+
 
     // изменение текущий элемент в текущем списке задач
 //    public void modifyCurrentItemInCurrentList(TaskToDo taskToDo)

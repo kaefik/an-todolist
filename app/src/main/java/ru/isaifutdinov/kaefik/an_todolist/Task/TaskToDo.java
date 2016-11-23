@@ -21,7 +21,7 @@ public class TaskToDo {
     public static final String TASK_UPDATECHECK = "updateCheckTask"; // параметр модификации задачи
     //END - параметры для передачи
 
-    private Long id;  // id задачи
+    private Integer id;  // id задачи
     private String title;  // заголовок задачи
     private boolean check;  // true - задача выполнена, иначе не выполнена
     private String dateToDoCreate;  // дата/время создания задачи
@@ -33,7 +33,7 @@ public class TaskToDo {
 //    private Long priority;  // приоритет задачи
 
 
-    public TaskToDo(Long id, String title, boolean check, String dateToDoCreate) {
+    public TaskToDo(Integer id, String title, boolean check, String dateToDoCreate) {
         this.id = id;
         this.title = title;
         this.check = check;
@@ -43,23 +43,23 @@ public class TaskToDo {
 
     public TaskToDo(String title) {
         this.title = title;
-        this.setDateToDoCreate();
+        this.setDateToDoCreate("");
         check = false;
-        id = 0l;
+        id = -1;
     }
 
     public TaskToDo(String title, boolean check) {
         this.title = title;
         this.check = check;
         this.setDateToDoCreate();
-        id = 0l;
+        id = -1;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -86,7 +86,7 @@ public class TaskToDo {
     // присвоение текущей даты и времени
     public void setDateToDoCreate() {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        this.dateToDoCreate = df.format(new Date());
+        this.dateToDoCreate = df.format(new Date()).toString();
 
     }
 
@@ -118,7 +118,7 @@ public class TaskToDo {
 
     // получение данных от Intent
     public void getExtraIntent(Intent intent) {
-        this.setId(intent.getLongExtra(TASK_ID, 0l));
+        this.setId(intent.getIntExtra(TASK_ID,0));
         this.setTitle(intent.getStringExtra(TASK_TITLE));
         this.setCheck(intent.getBooleanExtra(TASK_CHECK, false));
         this.setDateToDoCreate(intent.getStringExtra(TASK_DATECREATE));

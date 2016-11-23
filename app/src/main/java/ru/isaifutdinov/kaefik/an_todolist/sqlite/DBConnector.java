@@ -3,6 +3,7 @@ package ru.isaifutdinov.kaefik.an_todolist.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -24,6 +25,12 @@ public class DBConnector {
     public static final String TASK_CHECK = "checkTask";
     public static final String TASK_DATECREATE = "dateCreateTask";
 
+    // Номера столбцов
+    private static final int NUM_TASK_ID = 0;
+    private static final int NUM_TASK_TITLE = 1;
+    private static final int NUM_TASK_CHECK = 2;
+    private static final int NUM_DATECREATE = 3;
+
     private SQLiteDatabase mDataBase;
     private OpenHelper mOpenHelper;
 
@@ -36,17 +43,120 @@ public class DBConnector {
     }
 
 
-    // Метод добавления строки в БД,  в таблицу tableName
+    // Метод добавления строки в БД,  в таблицу tableName  - t+
     public long insert(TaskToDo md, String tableName) {
-        ContentValues cv=new ContentValues();
+        ContentValues cv = new ContentValues();
         cv.put(TASK_ID, md.getId());
         cv.put(TASK_TITLE, md.getTitle());
         cv.put(TASK_CHECK, md.isCheck());
+        cv.put(TASK_DATECREATE, md.getDateToDoCreate());
         return mDataBase.insert(tableName, null, cv);
     }
 
 
+    // Метод удаления всех записей из БД из таблицы
+    public int deleteAll(String tableName) {
+        return mDataBase.delete(tableName, null, null);
+    }
 
+
+    // Метод удаления всех записей из БД из всех таблиц
+    public void deleteAll() {
+        for (String nameTable : mNameTableList) {
+            deleteAll(nameTable);
+        }
+    }
+
+    // Метод удаления записи
+    public void delete(long id, String tableName) {
+        mDataBase.delete(tableName, TASK_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    // Метод редактирования строки в БД
+    public int update(TaskToDo md, String tableName) {
+        ContentValues cv = new ContentValues();
+        cv.put(TASK_ID, md.getId());
+        cv.put(TASK_TITLE, md.getTitle());
+        cv.put(TASK_CHECK, md.isCheck());
+        cv.put(TASK_DATECREATE, md.getDateToDoCreate());
+        return mDataBase.update(tableName, cv, TASK_ID + " = ?", new String[]{String.valueOf(md.getId())});
+    }
+
+
+    // Метод выборки одной записи  - t+
+    public TaskToDo select(int id, String tableName) {
+        Cursor mCursor = mDataBase.query(tableName, null, TASK_ID + " = ?", new String[]{String.valueOf(id)}, null, null, TASK_DATECREATE);  // ???
+        boolean check;
+
+
+        mCursor.moveToFirst();
+        if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект TaskToDo
+            return new TaskToDo("");
+        }
+        String title = mCursor.getString(NUM_TASK_TITLE);
+        if (mCursor.getInt(NUM_TASK_CHECK) == 0) {
+            check = false;
+        } else {
+            check = true;
+        }
+        String datecreate = mCursor.getString(NUM_DATECREATE);
+        mCursor.close();
+        return new TaskToDo(id, title, check, datecreate);
+    }
+
+    //метод возвращения максимального ID в указанной таблице, если ошибка то возвращает -1  - t+
+    public int getMaxId(String tableName) {
+    //        SELECT MAX(idTask) FROM Alls;
+        String queryString ="SELECT MAX(idTask) FROM Alls";
+        Cursor mCursor = mDataBase.rawQuery(queryString, null);
+
+        mCursor.moveToFirst();
+        if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект TaskToDo
+            return -1;
+        }
+
+        return mCursor.getInt(0);
+    }
+
+    // метод возвращения количество элементов в указанной таблице - t+
+    public int getCount(String tableName) {
+    //        SELECT COUNT(idTask) FROM Alls;
+
+        String queryString ="SELECT COUNT(idTask) FROM Alls";
+        Cursor mCursor = mDataBase.rawQuery(queryString, null);
+
+        mCursor.moveToFirst();
+        if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект TaskToDo
+            return -1;
+        }
+
+        return mCursor.getInt(0);
+    }
+
+    // TODO: написать метод "дефрагментации" , т. е. перенумеровывает id чтобы они шли по порядку? ,без дырок
+    public int getDefragId(String tableName) {
+        return 0;
+    }
+
+    // Метод выборки всех записей
+    //TODO: переработать - неправильно
+    public List<TaskToDo> selectAll(String tableName) {
+//        Cursor mCursor = mDataBase.query(tableName, null, null, null, null, null, TASK_DATECREATE);
+
+        List<TaskToDo> arr = new ArrayList<TaskToDo>();
+//        mCursor.moveToFirst();
+//        if (!mCursor.isAfterLast()) {
+//            do {
+//                long id = mCursor.getLong(NUM_COLUMN_ID);
+//                long date = mCursor.getLong(NUM_COLUMN_DATE);
+//                String title = mCursor.getString(NUM_COLUMN_TITLE);
+//                int icon = mCursor.getInt(NUM_COLUMN_ICON);
+//                arr.add(new MyData(id, date, title, icon));
+//            } while (mCursor.moveToNext());
+//        }
+//        mCursor.close();
+        return arr;
+    }
 
 
     //класс для создания БД
@@ -63,8 +173,8 @@ public class DBConnector {
         public void onCreate(SQLiteDatabase db) {
             if (mNameTableList == null) return;
             for (String nameTable : mNameTableList) {
-                String query = "CREATE TABLE " + nameTable + "(" + TASK_ID
-                        + " INTEGER primary key," + TASK_TITLE + " TEXT," + TASK_CHECK + " INTEGER," + TASK_DATECREATE + " TEXT"  + ")";
+                String query = "CREATE TABLE IF NOT EXISTS " + nameTable + "(" + TASK_ID
+                        + " INTEGER PRIMARY KEY," + TASK_TITLE + " TEXT," + TASK_CHECK + " INTEGER," + TASK_DATECREATE + " TEXT" + ")";
                 db.execSQL(query);
             }
         }

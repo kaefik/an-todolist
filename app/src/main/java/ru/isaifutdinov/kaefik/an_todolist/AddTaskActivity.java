@@ -44,7 +44,7 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 TaskToDo tempTaskTODo = new TaskToDo("");
-                tempTaskTODo.setId(0l);
+                tempTaskTODo.setId(0);
                 tempTaskTODo.setTitle(mTitleTaskEditText.getText().toString());
                 tempTaskTODo.setDateToDoCreate(mDataCreateTaskTextView.getText().toString());
                 tempTaskTODo.setCheck(mDoneTaskCheckBox.isChecked());
