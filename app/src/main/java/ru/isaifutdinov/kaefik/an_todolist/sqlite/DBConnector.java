@@ -104,10 +104,62 @@ public class DBConnector {
         return new TaskToDo(id, title, check, datecreate);
     }
 
+
+    // Метод выборки всех записей
+    //TODO: переработать - неправильно
+    public List<TaskToDo> selectAll(String tableName) {
+        boolean check;
+        Cursor mCursor = mDataBase.query(tableName, null, null, null, null, null, TASK_DATECREATE);  // ???
+        List<TaskToDo> arr = new ArrayList<TaskToDo>();
+
+        mCursor.moveToFirst();
+        if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект ArrayList<TaskToDo>
+            return arr;
+        }
+
+        if (!mCursor.isAfterLast()) {
+            do {
+                String title = mCursor.getString(NUM_TASK_TITLE);
+                if (mCursor.getInt(NUM_TASK_CHECK) == 0) {
+                    check = false;
+                } else {
+                    check = true;
+                }
+                String datecreate = mCursor.getString(NUM_DATECREATE);
+                int id = mCursor.getInt(NUM_TASK_ID);
+
+                arr.add(new TaskToDo(id, title, check, datecreate));
+            } while (mCursor.moveToNext());
+        }
+
+        mCursor.close();
+        return arr;
+    }
+
+
+    //метод возвращает список всех таблиц - один из имен служебная таблица android_metadata
+    public ArrayList<String> getTableName() {
+        Cursor mCursor = mDataBase.rawQuery("SELECT name FROM sqlite_master WHERE type = 'table'", null);
+        mCursor.moveToFirst();
+
+        ArrayList<String> arr = new ArrayList<String>();
+
+        if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект TaskToDo
+            return arr;
+        }
+        mCursor.moveToFirst();
+
+        do{
+            arr.add(mCursor.getString(0));
+        } while (mCursor.moveToNext());
+
+        return arr;
+    }
+
     //метод возвращения максимального ID в указанной таблице, если ошибка то возвращает -1  - t+
     public int getMaxId(String tableName) {
-    //        SELECT MAX(idTask) FROM Alls;
-        String queryString ="SELECT MAX(idTask) FROM Alls";
+        //        SELECT MAX(idTask) FROM Alls;
+        String queryString = "SELECT MAX(idTask) FROM Alls";
         Cursor mCursor = mDataBase.rawQuery(queryString, null);
 
         mCursor.moveToFirst();
@@ -120,9 +172,9 @@ public class DBConnector {
 
     // метод возвращения количество элементов в указанной таблице - t+
     public int getCount(String tableName) {
-    //        SELECT COUNT(idTask) FROM Alls;
+        //        SELECT COUNT(idTask) FROM Alls;
 
-        String queryString ="SELECT COUNT(idTask) FROM Alls";
+        String queryString = "SELECT COUNT(idTask) FROM Alls";
         Cursor mCursor = mDataBase.rawQuery(queryString, null);
 
         mCursor.moveToFirst();
@@ -136,26 +188,6 @@ public class DBConnector {
     // TODO: написать метод "дефрагментации" , т. е. перенумеровывает id чтобы они шли по порядку? ,без дырок
     public int getDefragId(String tableName) {
         return 0;
-    }
-
-    // Метод выборки всех записей
-    //TODO: переработать - неправильно
-    public List<TaskToDo> selectAll(String tableName) {
-//        Cursor mCursor = mDataBase.query(tableName, null, null, null, null, null, TASK_DATECREATE);
-
-        List<TaskToDo> arr = new ArrayList<TaskToDo>();
-//        mCursor.moveToFirst();
-//        if (!mCursor.isAfterLast()) {
-//            do {
-//                long id = mCursor.getLong(NUM_COLUMN_ID);
-//                long date = mCursor.getLong(NUM_COLUMN_DATE);
-//                String title = mCursor.getString(NUM_COLUMN_TITLE);
-//                int icon = mCursor.getInt(NUM_COLUMN_ICON);
-//                arr.add(new MyData(id, date, title, icon));
-//            } while (mCursor.moveToNext());
-//        }
-//        mCursor.close();
-        return arr;
     }
 
 

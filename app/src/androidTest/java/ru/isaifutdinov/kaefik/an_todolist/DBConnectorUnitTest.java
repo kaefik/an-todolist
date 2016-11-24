@@ -81,4 +81,27 @@ public class DBConnectorUnitTest extends AndroidTestCase {
         assertEquals(dbConnector.getCount("Alls"),3);
     }
 
+    @Test
+    public void selectAll_isCorrect() throws Exception {
+        List<TaskToDo> listTaskToDoAlls = dbConnector.selectAll("Alls");
+        assertEquals(listTaskToDoAlls.size(),3);
+
+        List<TaskToDo> listTaskToDoToday = dbConnector.selectAll("Today");
+        assertEquals(listTaskToDoToday.size(),0);
+    }
+
+    @Test
+    public void getTableName_isCorrect() throws Exception {
+        ArrayList<String> listTableName = dbConnector.getTableName();
+        assertEquals(listTableName.size(),4);
+
+        assertEquals(listTableName.get(1).compareTo("Alls"),0);
+        assertEquals(listTableName.get(2).compareTo("Today"),0);
+        assertEquals(listTableName.get(3).compareTo("Shopping"),0);
+
+
+
+
+    }
+
 }
