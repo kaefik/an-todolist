@@ -54,7 +54,7 @@ public class DBConnector {
     }
 
 
-    // Метод удаления всех записей из БД из таблицы
+    // Метод удаления всех записей из БД из таблицы  - t+
     public int deleteAll(String tableName) {
         return mDataBase.delete(tableName, null, null);
     }
@@ -67,9 +67,9 @@ public class DBConnector {
         }
     }
 
-    // Метод удаления записи
-    public void delete(long id, String tableName) {
-        mDataBase.delete(tableName, TASK_ID + " = ?", new String[]{String.valueOf(id)});
+    // Метод удаления записи по id   - t+
+    public int delete(int id, String tableName) {
+        return mDataBase.delete(tableName, TASK_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
     // Метод редактирования строки в БД
@@ -87,8 +87,6 @@ public class DBConnector {
     public TaskToDo select(int id, String tableName) {
         Cursor mCursor = mDataBase.query(tableName, null, TASK_ID + " = ?", new String[]{String.valueOf(id)}, null, null, TASK_DATECREATE);  // ???
         boolean check;
-
-
         mCursor.moveToFirst();
         if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект TaskToDo
             return new TaskToDo("");
@@ -105,18 +103,15 @@ public class DBConnector {
     }
 
 
-    // Метод выборки всех записей
-    //TODO: переработать - неправильно
+    // Метод выборки всех записей в виде списка объектов TaskToDo   - t+
     public List<TaskToDo> selectAll(String tableName) {
         boolean check;
         Cursor mCursor = mDataBase.query(tableName, null, null, null, null, null, TASK_DATECREATE);  // ???
         List<TaskToDo> arr = new ArrayList<TaskToDo>();
-
         mCursor.moveToFirst();
         if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект ArrayList<TaskToDo>
             return arr;
         }
-
         if (!mCursor.isAfterLast()) {
             do {
                 String title = mCursor.getString(NUM_TASK_TITLE);
@@ -131,7 +126,6 @@ public class DBConnector {
                 arr.add(new TaskToDo(id, title, check, datecreate));
             } while (mCursor.moveToNext());
         }
-
         mCursor.close();
         return arr;
     }
@@ -149,7 +143,7 @@ public class DBConnector {
         }
         mCursor.moveToFirst();
 
-        do{
+        do {
             arr.add(mCursor.getString(0));
         } while (mCursor.moveToNext());
 
@@ -170,7 +164,7 @@ public class DBConnector {
         return mCursor.getInt(0);
     }
 
-    // метод возвращения количество элементов в указанной таблице - t+
+    // метод возвращения количество элементов в указанной таблице, иначе -1    - t+
     public int getCount(String tableName) {
         //        SELECT COUNT(idTask) FROM Alls;
 

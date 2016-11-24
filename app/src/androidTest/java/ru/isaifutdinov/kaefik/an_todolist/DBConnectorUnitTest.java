@@ -116,6 +116,14 @@ public class DBConnectorUnitTest extends AndroidTestCase {
         int resultDelete = dbConnector.deleteAll("Today"); // кол-во удаленных строк
         assertEquals(resultDelete, 3);
 
+        dbConnector.insert(mTaskToDo3, "Today");
+        dbConnector.insert(mTaskToDo1, "Today");
+        dbConnector.insert(mTaskToDo2, "Today");
+
+
+        int resultDeleteOne = dbConnector.delete(1,"Today" );
+        assertEquals(resultDeleteOne, 1);
+
     }
 
 }
