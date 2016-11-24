@@ -57,50 +57,64 @@ public class DBConnectorUnitTest extends AndroidTestCase {
 
     @Test
     public void insert_isCorrect() throws Exception {
-//        dbConnector.insert(mTaskToDo1, "Alls");
-//        dbConnector.insert(mTaskToDo2, "Alls");
-//        dbConnector.insert(mTaskToDo3, "Alls");
+        dbConnector.insert(mTaskToDo1, "Alls");
+        dbConnector.insert(mTaskToDo2, "Alls");
+        dbConnector.insert(mTaskToDo3, "Alls");
 
     }
 
     @Test
     public void select_isCorrect() throws Exception {
         TaskToDo taskToDo = dbConnector.select(1, "Alls");
-        TaskToDo taskToDo1 =dbConnector.select(4, "Alls");
+        TaskToDo taskToDo1 = dbConnector.select(4, "Alls");
         Log.i(TAG_TEST, "Title: " + taskToDo.getTitle());
     }
 
 
     @Test
     public void getMaxId_isCorrect() throws Exception {
-        assertEquals(dbConnector.getMaxId("Alls"),2);
+        assertEquals(dbConnector.getMaxId("Alls"), 2);
     }
 
     @Test
     public void getCount_isCorrect() throws Exception {
-        assertEquals(dbConnector.getCount("Alls"),3);
+        assertEquals(dbConnector.getCount("Alls"), 3);
     }
 
     @Test
     public void selectAll_isCorrect() throws Exception {
         List<TaskToDo> listTaskToDoAlls = dbConnector.selectAll("Alls");
-        assertEquals(listTaskToDoAlls.size(),3);
+        assertEquals(listTaskToDoAlls.size(), 3);
 
-        List<TaskToDo> listTaskToDoToday = dbConnector.selectAll("Today");
-        assertEquals(listTaskToDoToday.size(),0);
+        List<TaskToDo> listTaskToDoToday = dbConnector.selectAll("Shopping");
+        assertEquals(listTaskToDoToday.size(), 0);
     }
 
     @Test
     public void getTableName_isCorrect() throws Exception {
         ArrayList<String> listTableName = dbConnector.getTableName();
-        assertEquals(listTableName.size(),4);
+        assertEquals(listTableName.size(), 4);
 
-        assertEquals(listTableName.get(1).compareTo("Alls"),0);
-        assertEquals(listTableName.get(2).compareTo("Today"),0);
-        assertEquals(listTableName.get(3).compareTo("Shopping"),0);
+        assertEquals(listTableName.get(1).compareTo("Alls"), 0);
+        assertEquals(listTableName.get(2).compareTo("Today"), 0);
+        assertEquals(listTableName.get(3).compareTo("Shopping"), 0);
 
+    }
 
+    @Test
+    public void deleteAllTable_isCorrect() throws Exception {
 
+        dbConnector.insert(mTaskToDo1, "Today");
+        dbConnector.insert(mTaskToDo2, "Today");
+        dbConnector.insert(mTaskToDo3, "Today");
+
+        assertEquals(dbConnector.getCount("Today"), 3);
+
+        List<TaskToDo> listTaskToDoAlls = dbConnector.selectAll("Today");
+        assertEquals(listTaskToDoAlls.size(), 3);
+
+        int resultDelete = dbConnector.deleteAll("Today"); // кол-во удаленных строк
+        assertEquals(resultDelete, 3);
 
     }
 

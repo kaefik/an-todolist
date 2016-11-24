@@ -137,7 +137,7 @@ public class DBConnector {
     }
 
 
-    //метод возвращает список всех таблиц - один из имен служебная таблица android_metadata
+    //метод возвращает список всех таблиц - один из имен служебная таблица android_metadata  - t+
     public ArrayList<String> getTableName() {
         Cursor mCursor = mDataBase.rawQuery("SELECT name FROM sqlite_master WHERE type = 'table'", null);
         mCursor.moveToFirst();
