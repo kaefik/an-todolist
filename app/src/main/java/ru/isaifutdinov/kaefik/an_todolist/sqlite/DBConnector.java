@@ -12,6 +12,7 @@ import java.util.List;
 
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
 
+// клас для работы с БД на SQLite
 public class DBConnector {
 
     public static final int DATABASE_VERSION = 1;
@@ -146,7 +147,6 @@ public class DBConnector {
         do {
             arr.add(mCursor.getString(0));
         } while (mCursor.moveToNext());
-
         return arr;
     }
 
@@ -160,7 +160,6 @@ public class DBConnector {
         if (mCursor.getCount() == 0) {  // если не нашли ничего, то возращаем пустой объект TaskToDo
             return -1;
         }
-
         return mCursor.getInt(0);
     }
 
@@ -188,11 +187,8 @@ public class DBConnector {
     //класс для создания БД
     private class OpenHelper extends SQLiteOpenHelper {
 
-//        private List<String> mNameTableList; // массив названия таблиц, каждая таблица это отдельный список задач
-
         public OpenHelper(Context context, List<String> nameTableList) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//            .mNameTableList = nameTableList;
         }
 
         @Override

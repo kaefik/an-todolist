@@ -120,7 +120,6 @@ public class DBConnectorUnitTest extends AndroidTestCase {
         dbConnector.insert(mTaskToDo1, "Today");
         dbConnector.insert(mTaskToDo2, "Today");
 
-
         int resultDeleteOne = dbConnector.delete(1,"Today" );
         assertEquals(resultDeleteOne, 1);
 
