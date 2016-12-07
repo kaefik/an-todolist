@@ -21,6 +21,7 @@ import java.util.List;
 import ru.isaifutdinov.kaefik.an_todolist.Adapter.TaskRecyclerAdapter;
 import ru.isaifutdinov.kaefik.an_todolist.Task.MapListTaskToDo;
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
+import ru.isaifutdinov.kaefik.an_todolist.sqlite.DBConnector;
 import ru.isaifutdinov.kaefik.an_todolist.utils.RequestCode;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     // данные
     MapListTaskToDo mTaskListMap;// хранилище списков дел с задачами
+
+    DBConnector db;
 
 
     private RecyclerView.Adapter mAdapter;
@@ -104,6 +107,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         mTaskListMap.clearCursorItem();
+
+        // сохранение данные в БД тестовых данных
+        db = new DBConnector(this, getListNames());
+        db.insert(mTaskListMap);
     }
 
     //возращает имена списков дел (задач) - TODO: сделать чтобы восстановление имеющихся списков дел было из файла настроек или из базы данных
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 mTaskListMap.modifyCurrentItemInCurrentList(tempTaskToDo);
                 mTaskListMap.clearCursorItem();
                 refreshListRecyclerView(mTaskListMap.getmCursorNameList());
+                db.update(tempTaskToDo, mTaskListMap.getmCursorNameList());
             }
         } else {
             if (requestCode == RequestCode.REQUEST_CODE_NEW_TASK) {
@@ -163,6 +171,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(getApplicationContext(), "вернулись из создания нового таска", Toast.LENGTH_SHORT).show();
                     TaskToDo tempTaskToDo = new TaskToDo("");
                     tempTaskToDo.getExtraIntent(data);
+                    tempTaskToDo.setId(db.getMaxId(mTaskListMap.getmCursorNameList()));  // присвоение нового id нового таска в таблице  getmCursorNameList()
+                    tempTaskToDo.setUpdateCheck(true);  // устанавливаем флаг того что данные изменились
                     List<TaskToDo> tempListToDo = mTaskListMap.getListTaskToDo(mTaskListMap.getmCursorNameList());
                     tempListToDo.add(tempTaskToDo);
                     mTaskListMap.setListTaskToDo(mTaskListMap.getmCursorNameList(), tempListToDo);
@@ -177,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     });
                     mTasksRecyclerView.setAdapter(mAdapter);
                     mTaskListMap.clearCursorItem();
+                    db.insert(mTaskListMap); // записываем данные в БД
                 }
             }
         }

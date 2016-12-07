@@ -38,6 +38,7 @@ public class TaskToDo {
         this.title = title;
         this.check = check;
         this.dateToDoCreate = dateToDoCreate;
+        updateCheck=false;
     }
 
 
@@ -46,6 +47,7 @@ public class TaskToDo {
         this.setDateToDoCreate("");
         check = false;
         id = -1;
+        updateCheck=false;
     }
 
     public TaskToDo(String title, boolean check) {
@@ -53,6 +55,7 @@ public class TaskToDo {
         this.check = check;
         this.setDateToDoCreate();
         id = -1;
+        updateCheck=false;
     }
 
     public Integer getId() {
@@ -151,6 +154,8 @@ public class TaskToDo {
             return false;
         }
     }
+
+
 
 
 }

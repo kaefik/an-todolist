@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.isaifutdinov.kaefik.an_todolist.Task.MapListTaskToDo;
 import ru.isaifutdinov.kaefik.an_todolist.Task.TaskToDo;
 
 // клас для работы с БД на SQLite
@@ -52,6 +53,37 @@ public class DBConnector {
         cv.put(TASK_CHECK, md.isCheck());
         cv.put(TASK_DATECREATE, md.getDateToDoCreate());
         return mDataBase.insert(tableName, null, cv);
+    }
+
+    // Метод добавления список задач в таблицу tableName всех записей    - t-
+    public void insertAll(List<TaskToDo> td, String tableName) {
+        for(TaskToDo itd:td){
+            insert(itd,tableName);
+        }
+    }
+    // Метод добавления список задач в таблицу tableName только тех записей которые были изменены    - t-
+    public void insert(List<TaskToDo> td, String tableName) {
+        for(TaskToDo itd:td){
+            if(itd.isUpdateCheck()) {
+                insert(itd, tableName);
+            }
+        }
+    }
+
+
+    // Метод добавления список задач ,  в таблицы   всех записей  - t-
+    public void insertAll(MapListTaskToDo md) {
+        for(String name: md.getNameList() ){
+            insertAll(md.getListTaskToDo(name),name);
+        }
+    }
+
+    // Метод добавления список задач ,  в таблицы   всех записей  - t-
+    public void insert(MapListTaskToDo md) {
+        for(String name: md.getNameList() ){
+            insert(md.getListTaskToDo(name),name);
+        }
+
     }
 
 

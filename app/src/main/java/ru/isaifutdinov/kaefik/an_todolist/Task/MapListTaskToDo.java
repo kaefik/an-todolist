@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 //хранилище списков дел с задачами
 
@@ -88,6 +89,11 @@ public class MapListTaskToDo {
 
     public void clearCursorNameList() {
         this.setmCursorNameList("");
+    }
+
+    //получить список имен Списков задач
+    public Set<String> getNameList(){
+        return  mTaskListMap.keySet();
     }
 
 }
